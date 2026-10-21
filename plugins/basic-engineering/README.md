@@ -6,7 +6,7 @@ Composable skills and agents for everyday software engineering workflows.
 
 ```bash
 /plugin marketplace add tvhoang3005/claude-marketplace
-/plugin install basic-engineering@ap-marketplace
+/plugin install basic-engineering@hoangtruong-marketplace
 ```
 
 ## Contents

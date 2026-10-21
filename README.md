@@ -23,7 +23,7 @@ Licensed under the [MIT License](LICENSE).
 /plugin marketplace add tvhoang3005/claude-marketplace
 
 # 2. Install the plugin
-/plugin install basic-engineering@ap-marketplace
+/plugin install basic-engineering@hoangtruong-marketplace
 ```
 
 ## Repository layout
@@ -39,5 +39,5 @@ templates/plugin-template/        # Copy this to start a new plugin
 1. Copy `templates/plugin-template/` to `plugins/<plugin-name>/` and replace `PLUGIN_NAME` / `PLUGIN_DESCRIPTION`.
 2. Add an entry to `plugins` in `.claude-plugin/marketplace.json` with `"source": "./plugins/<plugin-name>"`.
 3. Validate: `claude plugin validate .` and `claude plugin validate ./plugins/<plugin-name>`.
-4. Test locally: `/plugin marketplace add ./` then `/plugin install <plugin-name>@ap-marketplace`.
+4. Test locally: `/plugin marketplace add ./` then `/plugin install <plugin-name>@hoangtruong-marketplace`.
 5. Bump `version` in both `plugin.json` and the marketplace entry when releasing changes.

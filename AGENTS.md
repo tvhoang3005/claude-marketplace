@@ -1,6 +1,6 @@
 # AP Claude Marketplace
 
-This repository is a Claude Code plugin marketplace named `ap-marketplace`. The catalog is `.claude-plugin/marketplace.json`; each plugin lives under `plugins/` and follows the standard plugin structure. New plugins start as a copy of `templates/plugin-template/`.
+This repository is a Claude Code plugin marketplace named `hoangtruong-marketplace`. The catalog is `.claude-plugin/marketplace.json`; each plugin lives under `plugins/` and follows the standard plugin structure. New plugins start as a copy of `templates/plugin-template/`.
 
 ## Plugin Structure
 

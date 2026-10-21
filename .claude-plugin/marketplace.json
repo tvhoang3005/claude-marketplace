@@ -1,6 +1,6 @@
 {
   "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
-  "name": "ap-marketplace",
+  "name": "hoangtruong-marketplace",
   "owner": {
     "name": "Hoang Truong",
     "url": "https://github.com/tvhoang3005"
