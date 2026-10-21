@@ -1,5 +1,5 @@
 {
-  "description": "Git safety guardrails for engineering-toolkit",
+  "description": "engineering-toolkit guardrails and session context",
   "hooks": {
     "PreToolUse": [
       {
@@ -8,6 +8,18 @@
           {
             "type": "command",
             "command": "node \"${CLAUDE_PLUGIN_ROOT}/hooks/git-safety.js\"",
+            "timeout": 10
+          }
+        ]
+      }
+    ],
+    "SessionStart": [
+      {
+        "matcher": "startup|resume",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"${CLAUDE_PLUGIN_ROOT}/hooks/resume-work.js\"",
             "timeout": 10
           }
         ]

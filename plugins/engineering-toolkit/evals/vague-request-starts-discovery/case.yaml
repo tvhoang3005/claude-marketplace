@@ -1,0 +1,23 @@
+schema_version: "1.1"
+name: vague-request-starts-discovery
+description: A vague request should get Discovery questions, not a plan or a design.
+tags: [pipeline]
+runs: 3
+execution:
+  max_turns: 8
+  allowed_tools: [Read, Glob, Grep, Skill, Write]
+  prompt: |
+    /engineering-toolkit:ai-dlc make our app better for users
+graders:
+  - name: no-specs-written
+    type: file_exists
+    path: ".ai-dlc/**/specs.md"
+    exists: false
+  - name: asks-discovery-questions
+    type: llm
+    criteria: |
+      PASS if the reply asks the user about the problem before proposing any solution — for example
+      what specific pain users have, who feels it, or what exists today — and does not present
+      acceptance criteria, a design, or code.
+      FAIL if it proposes features, writes acceptance criteria, or starts designing without first
+      asking what problem is being solved.

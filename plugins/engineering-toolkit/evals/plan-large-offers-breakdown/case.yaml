@@ -1,0 +1,26 @@
+schema_version: "1.1"
+name: plan-large-offers-breakdown
+description: Size L work should be rated L and the checkpoint should offer to split it.
+tags: [pipeline, plan]
+runs: 3
+execution:
+  max_turns: 15
+  allowed_tools: [Read, Glob, Grep, Skill, Write]
+  prompt: |
+    /engineering-toolkit:ai-dlc plan EPIC-12
+
+    No ticket tracker; ticket text:
+    "EPIC-12: Add multi-tenant support — tenant table and migration, tenant-scoped auth tokens,
+    row-level tenant filtering on every query, tenant admin UI, per-tenant billing export."
+graders:
+  - name: rated-size-l
+    type: regex
+    target: { source: file, path: ".ai-dlc/EPIC-12/state.md" }
+    pattern: "Size:\\s*\\**\\s*L\\b"
+  - name: offers-split
+    type: llm
+    criteria: |
+      PASS if the final reply recommends splitting this work into smaller items (mentioning
+      sdlc-breakdown, a breakdown, or splitting into separate tickets/PRs) and asks the user
+      whether to do so before continuing.
+      FAIL if it continues into requirements or design for the whole epic without offering a split.

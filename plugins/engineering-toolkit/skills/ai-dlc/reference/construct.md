@@ -9,7 +9,7 @@ Implement with TDD, one wave at a time from `design.md` (or one wave covering `s
 3. **Refactor:** clean up names and duplication with the tests still green.
 4. **Validate:** run the project's lint, type-check and full affected test suite. Fix anything you broke.
 
-Discover the project's commands from `package.json`, `Makefile`, `pyproject.toml`, `go.mod` or the README — don't guess them.
+Use the commands in the **Project** section of `state.md`. If a command is recorded as `none`, skip that check and say so in the summary. If the test suite was already failing on a clean checkout, compare against that baseline rather than requiring all green.
 
 ## Rules
 

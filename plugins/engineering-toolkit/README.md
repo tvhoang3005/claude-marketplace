@@ -2,7 +2,7 @@
 
 An opinionated toolkit for Claude Code that introduces the **AI-DLC** (AI-driven development lifecycle) workflow: an adaptive pipeline from requirements to pull request, where the AI drives and you approve at checkpoints.
 
-> **v0.1 — minimal core.** This release ships the AI-DLC orchestrator, the shipping pipeline, investigation, three review agents and a git-safety hook. See [Roadmap](#roadmap) for what's planned.
+> **v0.2.** AI-DLC orchestrator, shipping pipeline, investigation, ticket breakdown, four review agents, git-safety and resume hooks, and an eval suite. See [Roadmap](#roadmap) for what's planned.
 
 ## Install
 
@@ -14,7 +14,7 @@ An opinionated toolkit for Claude Code that introduces the **AI-DLC** (AI-driven
 /plugin install engineering-toolkit@hoangtruong-marketplace
 ```
 
-Requires Node.js on `PATH` for the git-safety hook.
+Requires Node.js on `PATH` for the hooks. `gh` is optional (GitHub issues, PRs and CI checks).
 
 ## How It Works
 
@@ -29,26 +29,27 @@ Requires Node.js on `PATH` for the git-safety hook.
           +-------------+---------------+---------------+-------------+
           |             |               |               |             |
       Discovery       Plan         Inception →       Verify        Release
-      (if vague)   (classify)   Design → Construct  (2 agents)   (delegates)
-                                                                      |
-                                                                      v
-                                                             +--------------+
+      (if vague)   (classify,   Design → Construct  (2–3 agents)  (delegates)
+                   size, risk)                                        |
+                        |                                             v
+                  size L? → sdlc-breakdown                   +--------------+
                                                              | ship-n-check |
                                                              +--------------+
                                                        Branch → Quality → PR → CI
 ```
 
-Every phase writes an artifact to `.claude/artifacts/<work-id>/`. The next phase reads that file, not the chat history, so you can stop and resume a work item at any time.
+Every phase writes an artifact to `.ai-dlc/<work-id>/`. The next phase reads that file, not the chat history, so you can stop and resume a work item at any time. When you open a new session, a hook lists unfinished work items so Claude can offer to resume them.
 
 | Phase | Writes | What happens |
 |---|---|---|
 | Discovery | `discovery.md` | Six forcing questions to sharpen a vague idea |
-| Plan | `state.md` | Classifies intent and picks the pipeline |
+| Plan | `state.md` | Fetches the ticket, detects project commands, classifies intent, size and security risk, picks the pipeline |
+| Breakdown | `breakdown.md` | Size L only: splits into child work items, each with its own pipeline |
 | Investigate | `investigation.md` | Root-cause analysis for bugs with an unclear cause |
 | Inception | `specs.md` | Given/When/Then acceptance criteria, NFRs, open questions |
 | Design | `design.md` | Components, flow, ADRs, test plan, construction waves |
 | Construct | code + tests | TDD per wave: Red → Green → Refactor → Validate |
-| Verify | `review.md` | `requirements-reviewer` + `code-reviewer` run in parallel |
+| Verify | `review.md` | Reviewers chosen by risk, run in parallel (see below) |
 | Release | PR link | Hands off to `ship-n-check` |
 
 You get a checkpoint (**continue / revise / stop**) after every phase except Construct. Say "dev mode" to skip checkpoints for the current work item.
@@ -63,6 +64,17 @@ You get a checkpoint (**continue / revise / stop**) after every phase except Con
 | Small feature / refactor | Plan → Inception → Design → Construct → Verify → Release |
 | Full feature | Plan → Inception → Design (+ domain model) → Construct → Verify → Release |
 | Spike | Plan → Inception → Design → STOP |
+| Any intent, size L | Plan → offer Breakdown → each child runs its own pipeline |
+
+### Risk-scaled review
+
+| Change | Reviewers in Verify |
+|---|---|
+| Size S, not security-sensitive | `code-reviewer` |
+| Everything else | `requirements-reviewer` + `code-reviewer` |
+| Security-sensitive (auth, payments, personal data, untrusted input, `securityPaths`) | + `security-reviewer` |
+
+Each reviewer writes its report to `.ai-dlc/<work-id>/` and returns a short pointer, so the main session stays small on large diffs.
 
 ## Usage
 
@@ -72,6 +84,7 @@ You get a checkpoint (**continue / revise / stop**) after every phase except Con
 | Build a feature | "build a user dashboard" | `ai-dlc` — Discovery if vague, Plan if clear |
 | Fix a bug | "fix the auth bug" | `ai-dlc` — adds Investigate if the cause is unclear |
 | Debug something | "why is this failing?" | `investigate` — hypothesis-driven, never fixes |
+| Split a big ticket | "break this down" | `sdlc-breakdown` — vertical slices, each shippable |
 | Ship your code | "ship it", "commit and push", "create a PR" | `ship-n-check` — branch, quality, draft PR, CI |
 
 Run a single phase:
@@ -83,34 +96,64 @@ Run a single phase:
 /engineering-toolkit:ai-dlc verify TICKET-123
 ```
 
+### Tickets
+
+Plan fetches the ticket text when the request contains a ticket id:
+
+- **GitHub issues:** through `gh issue view`.
+- **Jira:** through a Jira/Atlassian MCP connector, if you have one connected and authorized.
+- **Neither available:** Claude asks you to paste the ticket.
+
+### Project config (optional)
+
+Plan auto-detects the base branch and format, lint, type-check and test commands, and records them in `state.md`. To override detection, copy [`config.example.json`](config.example.json) to `.claude/engineering-toolkit.json` in your repo. Every field is optional.
+
+### Git
+
+On the first run in a repo, Plan offers to add this to `.gitignore`. It commits the agreed specs and design decisions and ignores the working files:
+
+```gitignore
+.ai-dlc/**
+!.ai-dlc/*/
+!.ai-dlc/*/specs.md
+!.ai-dlc/*/design.md
+```
+
 ## Contents
 
-### Skills (3)
+### Skills (4)
 
 | Skill | Purpose |
 |---|---|
 | `ai-dlc` | Orchestrator for the full lifecycle; phase guides live in `skills/ai-dlc/reference/` |
 | `ship-n-check` | Branch → commit → format/lint/type-check/test → push → draft PR → CI watch |
 | `investigate` | Delegates to `debugger`, writes `investigation.md`, recommends a fix |
+| `sdlc-breakdown` | Splits large work into vertical, independently shippable child items |
 
-### Agents (3)
+### Agents (4)
 
 | Agent | Purpose |
 |---|---|
-| `debugger` | Hypothesis-driven root-cause analysis, max 3 rounds, read-only |
+| `debugger` | Hypothesis-driven root-cause analysis, max 3 rounds, never edits code |
 | `code-reviewer` | Adversarial review: correctness, security, tests, design |
 | `requirements-reviewer` | Checks each acceptance criterion is implemented and tested |
+| `security-reviewer` | OWASP-style review of security-sensitive changes |
 
-### Hooks (1)
+### Hooks (2)
 
-| Hook | Trigger | What it blocks |
+| Hook | Trigger | What it does |
 |---|---|---|
-| `git-safety` | PreToolUse (Bash) | `--no-verify`, force-push to main/master, `reset --hard`, `clean -f`, `checkout .`, `branch -D main` |
+| `git-safety` | PreToolUse (Bash) | Blocks `--no-verify`, force-push to main/master, `reset --hard`, `clean -f`, `checkout .`, `branch -D main` |
+| `resume-work` | SessionStart | Lists unfinished work items from `.ai-dlc/*/state.md` |
+
+### Evals
+
+[`evals/`](evals/) holds behaviour tests for routing, Plan classification, risk flags and checkpoints. See [evals/README.md](evals/README.md) for how to run them.
 
 ## Opinions
 
 - **AI drives, human validates:** the orchestrator recommends; you approve at checkpoints.
-- **Adaptive pipelines:** intent decides which phases run, not a fixed sequence.
+- **Adaptive pipelines:** intent, size and risk decide which phases and reviewers run, not a fixed sequence.
 - **Artifact-driven contracts:** phases talk through files, not conversation history.
 - **TDD:** Red → Green → Refactor → Validate.
 - **Adversarial review:** assume bugs exist until shown otherwise.
@@ -121,8 +164,8 @@ Run a single phase:
 Planned for later versions:
 
 - **Phases:** Observe (post-deploy health checks), separate Domain and Logical Design
-- **Skills:** `sdlc-breakdown`, `mode-dev` / `mode-research` / `mode-review`, `ship-pr-review`, `daily-summary`, `review-learning`, `update-docs`, `handoff`, `create-user-story`
-- **Agents:** `scout`, `inspector`, `steward`, `security-reviewer`, `ci-watcher`, Jira `clerk`
+- **Skills:** `mode-dev` / `mode-research` / `mode-review`, `ship-pr-review`, `daily-summary`, `review-learning`, `update-docs`, `handoff`, `create-user-story`
+- **Agents:** `scout`, `inspector`, `steward`, `ci-watcher`, Jira `clerk`
 - **Rules:** language rules for TypeScript, Python and Go; testing, naming and logging rules
 - **Hooks:** configurable `ship-conventions`, sensitive-file warning, debug-statement detection
 - **Stacks:** separate `nestjs-toolkit`, `nextjs-toolkit` and `django-toolkit` plugins

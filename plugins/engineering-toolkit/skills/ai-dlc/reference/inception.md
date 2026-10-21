@@ -1,6 +1,6 @@
 # Inception
 
-Turn the request into testable requirements. Inputs: `state.md`, plus `discovery.md` or `investigation.md` if present, plus the ticket text.
+Turn the request into testable requirements. Inputs: `state.md`, plus `discovery.md` or `investigation.md` if present, plus the ticket fetched in Plan (see [project-context.md](project-context.md)). If the ticket has its own acceptance criteria, start from them and tighten them; don't silently replace them.
 
 ## Steps
 

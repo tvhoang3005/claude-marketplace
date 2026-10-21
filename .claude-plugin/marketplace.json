@@ -16,20 +16,34 @@
       "source": "./plugins/basic-engineering",
       "description": "Composable skills and agents for everyday software engineering workflows.",
       "version": "0.1.0",
-      "author": { "name": "Hoang Truong" },
+      "author": {
+        "name": "Hoang Truong"
+      },
       "license": "MIT",
       "category": "development",
-      "keywords": ["engineering", "sdlc", "workflow"]
+      "keywords": [
+        "engineering",
+        "sdlc",
+        "workflow"
+      ]
     },
     {
       "name": "engineering-toolkit",
       "source": "./plugins/engineering-toolkit",
       "description": "AI-DLC workflow for Claude Code: an adaptive Plan → Build → Ship pipeline with checkpoints, artifact hand-offs and review agents.",
-      "version": "0.1.0",
-      "author": { "name": "Hoang Truong" },
+      "version": "0.2.0",
+      "author": {
+        "name": "Hoang Truong"
+      },
       "license": "MIT",
       "category": "development",
-      "keywords": ["ai-dlc", "sdlc", "workflow", "tdd", "code-review"]
+      "keywords": [
+        "ai-dlc",
+        "sdlc",
+        "workflow",
+        "tdd",
+        "code-review"
+      ]
     }
   ]
 }
