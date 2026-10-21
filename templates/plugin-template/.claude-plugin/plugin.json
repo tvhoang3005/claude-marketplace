@@ -1,0 +1,10 @@
+{
+  "name": "PLUGIN_NAME",
+  "version": "0.1.0",
+  "description": "PLUGIN_DESCRIPTION",
+  "author": { "name": "Hoang Truong", "url": "https://github.com/tvhoang3005" },
+  "homepage": "https://github.com/tvhoang3005/claude-marketplace",
+  "repository": "https://github.com/tvhoang3005/claude-marketplace",
+  "license": "MIT",
+  "keywords": []
+}

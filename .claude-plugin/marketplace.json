@@ -1,0 +1,25 @@
+{
+  "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
+  "name": "ap-marketplace",
+  "owner": {
+    "name": "Hoang Truong",
+    "url": "https://github.com/tvhoang3005"
+  },
+  "metadata": {
+    "description": "A collection of Claude Code plugins for software engineering workflows.",
+    "version": "0.1.0",
+    "pluginRoot": "./plugins"
+  },
+  "plugins": [
+    {
+      "name": "basic-engineering",
+      "source": "./plugins/basic-engineering",
+      "description": "Composable skills and agents for everyday software engineering workflows.",
+      "version": "0.1.0",
+      "author": { "name": "Hoang Truong" },
+      "license": "MIT",
+      "category": "development",
+      "keywords": ["engineering", "sdlc", "workflow"]
+    }
+  ]
+}
