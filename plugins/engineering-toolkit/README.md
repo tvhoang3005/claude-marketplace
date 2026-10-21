@@ -12,6 +12,9 @@ An opinionated toolkit for Claude Code that introduces the **AI-DLC** (AI-driven
 
 # 2. Install the toolkit
 /plugin install engineering-toolkit@hoangtruong-marketplace
+
+# 3. Optional: companion plugin with frontend architecture rules (React, Next.js, React Native)
+/plugin install basic-engineering@hoangtruong-marketplace
 ```
 
 Requires Node.js on `PATH` for the hooks. `gh` is optional (GitHub issues, PRs and CI checks).
