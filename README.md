@@ -15,6 +15,7 @@ Licensed under the [MIT License](LICENSE).
 | Plugin | Description |
 |---|---|
 | **basic-engineering** | Composable skills and agents for everyday software engineering workflows |
+| **engineering-toolkit** | AI-DLC workflow — adaptive Plan → Build → Ship pipeline with checkpoints, review agents and git-safety hook |
 
 ## Install
 

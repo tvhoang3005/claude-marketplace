@@ -1,0 +1,17 @@
+{
+  "description": "Git safety guardrails for engineering-toolkit",
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"${CLAUDE_PLUGIN_ROOT}/hooks/git-safety.js\"",
+            "timeout": 10
+          }
+        ]
+      }
+    ]
+  }
+}
