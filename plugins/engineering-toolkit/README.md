@@ -88,6 +88,7 @@ Each reviewer writes its report to `.ai-dlc/<work-id>/` and returns a short poin
 | Fix a bug | "fix the auth bug" | `ai-dlc` — adds Investigate if the cause is unclear |
 | Debug something | "why is this failing?" | `investigate` — hypothesis-driven, never fixes |
 | Split a big ticket | "break this down" | `sdlc-breakdown` — vertical slices, each shippable |
+| Check for vulnerabilities | "security review this branch" | `security-review` — CWE-mapped findings with fixes |
 | Ship your code | "ship it", "commit and push", "create a PR" | `ship-n-check` — branch, quality, draft PR, CI |
 
 Run a single phase:
@@ -124,10 +125,11 @@ On the first run in a repo, Plan offers to add this to `.gitignore`. It commits 
 
 ## Contents
 
-### Skills (4)
+### Skills (5)
 
 | Skill | Purpose |
 |---|---|
+| `security-review` | Runs `security-reviewer` against a catalogue of secure-coding patterns (CWE-mapped, with known-safe list) |
 | `ai-dlc` | Orchestrator for the full lifecycle; phase guides live in `skills/ai-dlc/reference/` |
 | `ship-n-check` | Branch → commit → format/lint/type-check/test → push → draft PR → CI watch |
 | `investigate` | Delegates to `debugger`, writes `investigation.md`, recommends a fix |

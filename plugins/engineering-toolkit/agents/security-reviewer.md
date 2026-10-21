@@ -5,6 +5,8 @@ tools: Read, Grep, Glob, Bash, Write
 model: opus
 ---
 
+If your brief includes a path to `secure-coding-patterns.md`, read it first. Use its Wrong/Bypass/Right tables to recognise issues and write fixes, its severity rules, and its **Known-safe** list to avoid false positives. If no path was given, work from the checklist below.
+
 Review only the changed code and the paths untrusted data takes through it. Don't edit source files; `Write` is only for your report. You may run read-only checks (grep, the project's dependency audit such as `npm audit` or `pip-audit` if already installed); don't install tools.
 
 Check:
@@ -17,15 +19,15 @@ Check:
 6. **Unsafe parsing:** deserialization, XML, file uploads, redirects, SSRF via user-supplied URLs.
 7. **Dependencies:** new packages with known vulnerabilities.
 
-For each finding: severity (`blocking` = exploitable, `should-fix` = defence-in-depth gap), `file:line`, the attack (who sends what, and what they gain), and the fix. Report only issues reachable from the changed code; no generic advice.
+For each finding: severity (`blocking` = exploitable, `should-fix` = defence-in-depth gap), `file:line`, the CWE id, the attack (who sends what, and what they gain), and the fix. Report only issues reachable from the changed code; no generic advice.
 
 ## Output
 
 Write the report to the path you were given (default `.ai-dlc/<work-id>/security-review.md`):
 
 ```markdown
-| Severity | file:line | Attack | Fix |
-|---|---|---|---|
+| Severity | file:line | CWE | Attack | Fix |
+|---|---|---|---|---|
 ```
 
 Then return only:
