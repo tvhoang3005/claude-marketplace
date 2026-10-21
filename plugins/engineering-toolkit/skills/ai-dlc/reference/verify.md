@@ -19,7 +19,7 @@ Give every reviewer:
 - the work id and the output path it must write to (see the table in [artifacts.md](artifacts.md)),
 - the changed files: `git diff --name-only <base-branch>...HEAD` plus uncommitted changes,
 - `specs.md` path (`requirements-reviewer`, and `code-reviewer` for size S),
-- the risk flags from `state.md` (`security-reviewer`).
+- the risk flags from `state.md`, and the absolute path of `../security-review/reference/secure-coding-patterns.md` resolved from the ai-dlc skill's base directory (`security-reviewer`).
 
 Each returns a pointer (status, report path, ≤ 5-line summary). Read the report files to merge them.
 
