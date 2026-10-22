@@ -15,6 +15,9 @@ An opinionated toolkit for Claude Code that introduces the **AI-DLC** (AI-driven
 
 # 3. Optional: companion plugin with frontend architecture rules (React, Next.js, React Native)
 /plugin install basic-engineering@hoangtruong-marketplace
+
+# 4. Optional: Next.js stack plugin (App Router, Server Components, Server Actions, data fetching, performance)
+/plugin install nextjs-toolkit@hoangtruong-marketplace
 ```
 
 Requires Node.js on `PATH` for the hooks. `gh` is optional (GitHub issues, PRs and CI checks).
@@ -173,4 +176,4 @@ Planned for later versions:
 - **Agents:** `scout`, `inspector`, `steward`, `ci-watcher`, Jira `clerk`
 - **Rules:** language rules for TypeScript, Python and Go; testing, naming and logging rules
 - **Hooks:** configurable `ship-conventions`, sensitive-file warning, debug-statement detection
-- **Stacks:** separate `nestjs-toolkit`, `nextjs-toolkit` and `django-toolkit` plugins
+- **Stacks:** separate `nestjs-toolkit` and `django-toolkit` plugins (`nextjs-toolkit` is available now — see [Install](#install))
