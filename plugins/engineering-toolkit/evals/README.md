@@ -16,6 +16,7 @@ Behaviour tests for the plugin, run with `claude plugin eval`. Each case is one 
 | `route-audit-to-codebase-review` | "Is this project structured correctly?" starts `codebase-review` |
 | `route-wrapup-to-handoff` | "Stopping for today, save context" starts `handoff` |
 | `handoff-writes-file` | Handoff file written with `Status: open`, dead ends and a concrete next step |
+| `size-s-feature-skips-design` | Size-S feature → no Plan stop, no design phase, `## Files to touch` in specs, stops before code |
 | `plan-no-ticket-utf8` | No ticket + `UTF-8` in the request → slug work id, `state.md` written, no ticket prompt |
 
 ## Run
@@ -36,6 +37,12 @@ claude plugin eval ./plugins/engineering-toolkit --case plan-bug-known-pipeline 
 Each run starts a full Claude session on your account, and cases run 3 times by default, so a full suite costs real tokens. Use `--max-cost-usd` to cap it.
 
 Routing graders (`tool_used: Skill`) are reported as indicators rather than scored in the default with/without-plugin comparison, because the skill can't fire without the plugin. The negative case uses `arm: both` so it is scored in both arms.
+
+Cases tagged `scaffold` build a fixture repo with a script and need `--scaffold`; without it they run in an empty directory and fail:
+
+```bash
+claude plugin eval ./plugins/engineering-toolkit --tag scaffold --scaffold --allow-tools Write Bash
+```
 
 ## Adding a case
 

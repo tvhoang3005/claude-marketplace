@@ -1,0 +1,50 @@
+schema_version: "1.1"
+name: size-s-feature-skips-design
+description: A size-S feature runs Plan and Inception back to back (no Plan checkpoint), has no design phase, lists files to touch in specs.md, and stops at the Inception checkpoint before writing code.
+tags: [pipeline, plan, scaffold]
+runs: 3
+context:
+  scaffold_script: fixture.sh
+execution:
+  max_turns: 25
+  allowed_tools: [Read, Glob, Grep, Skill, Write, Bash]
+  prompt: |
+    /engineering-toolkit:ai-dlc FEAT-9
+
+    No ticket tracker; ticket text:
+    "FEAT-9: Add a --version flag to the CLI in src/cli.js. It prints the version field from package.json
+    and exits with code 0. Nothing else changes."
+graders:
+  - name: state-written
+    type: file_exists
+    path: ".ai-dlc/FEAT-9/state.md"
+  - name: intent-feature
+    type: regex
+    target: { source: file, path: ".ai-dlc/FEAT-9/state.md" }
+    pattern: "Intent:\\s*\\**\\s*`?feature"
+  - name: size-s
+    type: regex
+    target: { source: file, path: ".ai-dlc/FEAT-9/state.md" }
+    pattern: "Size:\\s*\\**\\s*S\\b"
+  - name: no-design-phase
+    type: regex
+    target: { source: file, path: ".ai-dlc/FEAT-9/state.md" }
+    pattern: "- \\[[ x]\\] design"
+    match: not_contains
+  - name: specs-written-without-plan-stop
+    type: file_exists
+    path: ".ai-dlc/FEAT-9/specs.md"
+  - name: files-to-touch
+    type: regex
+    target: { source: file, path: ".ai-dlc/FEAT-9/specs.md" }
+    pattern: "## Files to touch"
+  - name: stops-before-construct
+    type: tool_used
+    tool: Edit
+    input_match: '"file_path"\s*:\s*"[^"]*src/'
+    min: 0
+    max: 0
+  - name: no-new-source-files
+    type: file_exists
+    path: "src/**"
+    exists: false

@@ -25,6 +25,7 @@ plugins/<plugin-name>/
 - Each skill must have a `SKILL.md` with frontmatter (name, description)
 - Reference files are loaded on-demand by skills, not eagerly
 - Agents define subagent roles with specific tools and responsibilities
+- When a skill delegates to an agent, name it in full as `<plugin-name>:<agent-name>` — plugins are namespaced, and another installed plugin may ship an agent with the same short name
 - Rules trigger based on file path patterns
 - Every plugin under `plugins/` must have a matching entry in `.claude-plugin/marketplace.json`; keep `name`, `description` and `version` identical in both places
 - Skill and agent `description` frontmatter states what it does and when to use it — Claude routes on it

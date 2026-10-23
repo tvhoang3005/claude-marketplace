@@ -6,8 +6,10 @@ Check the change against the specs and review it adversarially. Choose reviewers
 
 | Condition (from `state.md`) | Reviewers |
 |---|---|
-| Always | `code-reviewer` — code review plus the acceptance-criteria check against `specs.md` |
-| `security-sensitive: yes` | add `security-reviewer` |
+| Always | `engineering-toolkit:code-reviewer` — code review plus the acceptance-criteria check against `specs.md` |
+| `security-sensitive: yes` | add `engineering-toolkit:security-reviewer` |
+
+Use these full agent names: another installed plugin may have an agent with the same short name.
 
 ## Brief each reviewer
 

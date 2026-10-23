@@ -27,8 +27,8 @@ Run as subagents at the same time, each writing its own report and returning a s
 
 | Agent | When | Brief |
 |---|---|---|
-| `architecture-reviewer` | unless focus is security only | area, stack + version, yardstick reference paths, absolute path of [reference/review-dimensions.md](reference/review-dimensions.md), test result, output `.ai-dlc/<work-id>/architecture-review.md` |
-| `security-reviewer` | unless focus excludes security | `scope: project`, the area, stack, yardstick security reference path if any, absolute path of `../security-review/reference/secure-coding-patterns.md` resolved from this skill's base directory, output `.ai-dlc/<work-id>/security-review.md` |
+| `engineering-toolkit:architecture-reviewer` | unless focus is security only | area, stack + version, yardstick reference paths, absolute path of [reference/review-dimensions.md](reference/review-dimensions.md), test result, output `.ai-dlc/<work-id>/architecture-review.md` |
+| `engineering-toolkit:security-reviewer` | unless focus excludes security | `scope: project`, the area, stack, yardstick security reference path if any, absolute path of `../security-review/reference/secure-coding-patterns.md` resolved from this skill's base directory, output `.ai-dlc/<work-id>/security-review.md` |
 
 ## 4. Merge into `codebase-review.md`
 

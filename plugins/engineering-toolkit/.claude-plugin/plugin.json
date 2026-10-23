@@ -1,6 +1,6 @@
 {
   "name": "engineering-toolkit",
-  "version": "0.5.0",
+  "version": "0.5.1",
   "description": "AI-DLC workflow for Claude Code: an adaptive Plan → Build → Ship pipeline with checkpoints, artifact hand-offs and review agents.",
   "author": { "name": "Hoang Truong", "url": "https://github.com/tvhoang3005" },
   "homepage": "https://github.com/tvhoang3005/claude-marketplace",
