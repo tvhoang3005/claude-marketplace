@@ -1,0 +1,15 @@
+schema_version: "1.1"
+name: route-audit-to-codebase-review
+description: Asking whether an existing project is structured well should start codebase-review (directly or via ai-dlc), not a code change.
+tags: [routing, smoke]
+runs: 3
+execution:
+  max_turns: 8
+  allowed_tools: [Read, Glob, Grep, Skill]
+  prompt: |
+    Can you review this project and tell me whether it's structured correctly and what we should improve? Don't change any code yet.
+graders:
+  - name: codebase-review-fired
+    type: tool_used
+    tool: Skill
+    input_match: '"skill"\s*:\s*"(?:engineering-toolkit:)?codebase-review"'

@@ -73,6 +73,7 @@ You get a checkpoint (**continue / revise / stop**) after every phase except Con
 | Small feature / refactor | Plan → Inception → Design → Construct → Verify → Release |
 | Full feature | Plan → Inception → Design (+ domain model) → Construct → Verify → Release |
 | Spike | Plan → Inception → Design → STOP |
+| Audit ("review the project") | Plan → Review (`codebase-review`) → STOP; each finding you pick becomes its own work item |
 | Any intent, size L | Plan → offer Breakdown → each child runs its own pipeline |
 
 ### Risk-scaled review
@@ -95,6 +96,7 @@ Each reviewer writes its report to `.ai-dlc/<work-id>/` and returns a short poin
 | Debug something | "why is this failing?" | `investigate` — hypothesis-driven, never fixes |
 | Split a big ticket | "break this down" | `sdlc-breakdown` — vertical slices, each shippable |
 | Check for vulnerabilities | "security review this branch" | `security-review` — CWE-mapped findings with fixes |
+| Audit an existing project | "review this project's structure", "what should we improve?" | `codebase-review` — prioritized findings with `file:line`, using a stack plugin (e.g. `tauri-toolkit`) as yardstick when installed |
 | Ship your code | "ship it", "commit and push", "create a PR" | `ship-n-check` — branch, quality, draft PR, CI |
 
 Run a single phase:
@@ -140,7 +142,7 @@ On the first run in a repo, Plan offers to add this to `.gitignore`. It commits 
 
 ## Contents
 
-### Skills (6)
+### Skills (7)
 
 | Skill | Purpose |
 |---|---|
@@ -149,16 +151,18 @@ On the first run in a repo, Plan offers to add this to `.gitignore`. It commits 
 | `ship-n-check` | Branch → commit → format/lint/type-check/test → push → draft PR → CI watch |
 | `investigate` | Delegates to `debugger`, writes `investigation.md`, recommends a fix |
 | `sdlc-breakdown` | Splits large work into vertical, independently shippable child items |
+| `codebase-review` | Audits existing code (structure, boundaries, tests, tooling, project-wide security) in parallel agents, writes `codebase-review.md` with numbered findings |
 | `handoff` | Writes a self-contained handoff (goal, evidence, decisions, dead ends, next step, git state) and resumes from it |
 
-### Agents (4)
+### Agents (5)
 
 | Agent | Purpose |
 |---|---|
 | `debugger` | Hypothesis-driven root-cause analysis, max 3 rounds, never edits code |
 | `code-reviewer` | Adversarial review: correctness, security, tests, design |
 | `requirements-reviewer` | Checks each acceptance criterion is implemented and tested |
-| `security-reviewer` | OWASP-style review of security-sensitive changes |
+| `security-reviewer` | OWASP-style review of security-sensitive changes, or of a whole area (`scope: project`) |
+| `architecture-reviewer` | Read-only structure review of existing code against framework conventions |
 
 ### Hooks (2)
 

@@ -12,7 +12,7 @@ graders:
   - name: no-skill-fired
     type: tool_used
     tool: Skill
-    input_match: '"skill"\s*:\s*"(?:engineering-toolkit:)?(?:ai-dlc|investigate|ship-n-check|sdlc-breakdown|security-review|handoff)"'
+    input_match: '"skill"\s*:\s*"(?:engineering-toolkit:)?(?:ai-dlc|investigate|ship-n-check|sdlc-breakdown|security-review|handoff|codebase-review)"'
     min: 0
     max: 0
     arm: both
