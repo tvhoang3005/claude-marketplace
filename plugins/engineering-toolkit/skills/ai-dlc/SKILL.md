@@ -41,7 +41,7 @@ Plan decides which phases run. Follow the `## Pipeline` checklist in `state.md`;
 
 ## 4. Checkpoints
 
-After each phase marked "Yes" above (size S: skip the Plan checkpoint and continue to Inception; its checkpoint shows the classification and the specs together):
+After each phase marked "Yes" above (size S: skip the Plan checkpoint and continue to Inception, whose checkpoint shows the classification and the specs together — unless Plan has gaps to raise or needs the user's approval, such as the `.gitignore` block; then stop at Plan as usual):
 
 1. Tick the phase in `state.md` (`- [x] <phase> — done`).
 2. Show the user a summary of at most 5 bullets plus the artifact path.

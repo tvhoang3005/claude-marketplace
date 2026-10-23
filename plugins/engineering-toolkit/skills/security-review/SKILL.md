@@ -6,7 +6,7 @@ argument-hint: "[work-id or base branch]"
 
 # Security Review
 
-Delegate to the **`security-reviewer`** agent; don't review inline. Inline review would pull the whole diff and the pattern catalogue into the main session.
+Delegate to the **`engineering-toolkit:security-reviewer`** agent; don't review inline. Inline review would pull the whole diff and the pattern catalogue into the main session.
 
 1. **Scope:** the changed files, `git diff --name-only <base-branch>...HEAD` plus uncommitted changes. If `.ai-dlc/<work-id>/state.md` exists, take the base branch and risk flags from it; otherwise use the default branch.
 2. **Brief the agent** with:
