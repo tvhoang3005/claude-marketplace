@@ -16,6 +16,9 @@ Every work item has a folder `.ai-dlc/<work-id>/`. Phases and agents communicate
 | `code-review.md` | `code-reviewer` | Transient | No |
 | `security-review.md` | `security-reviewer` | Transient | No |
 | `review.md` | Verify (merged) | Transient | No |
+| `handoff.md` | `handoff` skill | Transient | No |
+
+Handoffs not tied to a work item go in `.ai-dlc/handoffs/<yyyy-mm-dd>-<slug>.md` — also transient and ignored by the block below.
 
 ## Gitignore setup
 
