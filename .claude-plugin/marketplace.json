@@ -49,7 +49,7 @@
       "name": "nextjs-toolkit",
       "source": "./plugins/nextjs-toolkit",
       "description": "Next.js 14+ patterns for App Router, Server Components, Server Actions, data fetching, and performance.",
-      "version": "0.1.0",
+      "version": "0.1.1",
       "author": {
         "name": "Hoang Truong"
       },
