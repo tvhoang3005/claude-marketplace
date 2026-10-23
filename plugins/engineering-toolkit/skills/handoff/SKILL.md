@@ -1,6 +1,6 @@
 ---
 name: handoff
-description: Writes a self-contained handoff of the current session — goal, status with evidence, decisions and dead ends, exact next step, git and environment state — so work can be picked up in a new session, on another machine or by a teammate; also resumes from one. Use when the user says "handoff", "write a handoff", "wrap up for today", "I'm stopping here", "save context so I can continue later", "pick up where we left off", or runs /engineering-toolkit:handoff. Not for shipping finished work (that is ship-n-check).
+description: Writes a self-contained handoff of the current session (goal, evidence, decisions, dead ends, next step, git state) so work can continue in a new session or by a teammate; also resumes one. Use for "handoff", "wrap up for today", "I'm stopping here", "save context to continue later", "pick up where we left off". Not for shipping (ship-n-check).
 argument-hint: "[resume [handoff-path]]"
 ---
 

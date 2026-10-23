@@ -4,7 +4,7 @@ Decide how to build it before writing code. Inputs: `state.md`, `specs.md`, and 
 
 ## Steps
 
-1. **Domain model** (full-feature only): entities, value objects, relationships, and invariants.
+1. **Domain model** (only when the change adds a data model): entities, value objects, relationships, and invariants.
 2. **Components:** the files or modules to add or change, and what each is responsible for.
 3. **Flow:** the main path through those components for each acceptance criterion.
 4. **Decisions:** any choice with a real alternative, recorded as a short ADR (context, decision, consequence).
@@ -16,7 +16,7 @@ Decide how to build it before writing code. Inputs: `state.md`, `specs.md`, and 
 ```markdown
 # Design: <work-id>
 
-## Domain model        (full-feature only)
+## Domain model        (only with a new data model)
 ## Components
 | Path | Change | Responsibility |
 ## Flow

@@ -28,7 +28,7 @@ For any command the config doesn't set, look in this order and take the first ma
 | `go.mod` | `gofmt -l .`, `go vet ./...`, `go test ./...` |
 | README / CONTRIBUTING | documented commands |
 
-Run the test command once to confirm it works before recording it. If it fails on a clean checkout, record it with a note so Construct doesn't mistake the existing failure for a new one.
+Run the test command once to confirm it works before recording it; keep only the pass/fail summary. If it fails on a clean checkout, record it with a note so Construct doesn't mistake the existing failure for a new one.
 
 ## 3. Fetch the ticket
 
@@ -49,6 +49,18 @@ Save the fetched title and a link in `state.md`; Inception reads the full text f
 ## 4. Release mode
 
 Use `release` from the config if set. Otherwise run `git remote`: no remote → `commit-only`, else `pr`. Record it so `ship-n-check` knows whether to push.
+
+## 5. Gitignore (first run in a repo)
+
+Check that `.gitignore` contains this block. If it is missing, show it to the user and add it once they agree:
+
+```gitignore
+# engineering-toolkit: keep durable AI-DLC artifacts, ignore working files
+.ai-dlc/**
+!.ai-dlc/*/
+!.ai-dlc/*/specs.md
+!.ai-dlc/*/design.md
+```
 
 ## Output: Project section of `state.md`
 

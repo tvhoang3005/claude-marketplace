@@ -1,6 +1,6 @@
 ---
 name: codebase-review
-description: Audits an existing project (or one area of it) without changing code — structure, module boundaries, error handling, tests, tooling and a project-wide security pass — and writes a prioritized findings report with file:line evidence and recommended fixes, using a stack skill (Tauri, Next.js…) as the yardstick when one is installed. Use when the user asks to "review the project", "audit the codebase", "is this structured correctly", "what should we improve", "health check", or when ai-dlc Plan classifies a request as audit. Not for reviewing a branch's diff (ai-dlc Verify / security-review do that).
+description: Audits an existing project or area without changing code — structure, boundaries, tests, tooling and project-wide security — and writes prioritized findings with file:line evidence. Use for "review the project", "audit the codebase", "is this structured correctly", "what should we improve", or when ai-dlc Plan classifies a request as audit. Not for reviewing a diff.
 argument-hint: "[path or area] [focus, e.g. security | structure | tests]"
 ---
 

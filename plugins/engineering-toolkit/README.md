@@ -38,7 +38,7 @@ Requires Node.js on `PATH` for the hooks. `gh` is optional (GitHub issues, PRs a
           +-------------+---------------+---------------+-------------+
           |             |               |               |             |
       Discovery       Plan         Inception →       Verify        Release
-      (if vague)   (classify,   Design → Construct  (2–3 agents)  (delegates)
+      (if vague)   (classify,   Design → Construct  (1–2 agents)  (delegates)
                    size, risk)                                        |
                         |                                             v
                   size L? → sdlc-breakdown                   +--------------+
@@ -58,7 +58,7 @@ Every phase writes an artifact to `.ai-dlc/<work-id>/`. The next phase reads tha
 | Inception | `specs.md` | Given/When/Then acceptance criteria, NFRs, open questions |
 | Design | `design.md` | Components, flow, ADRs, test plan, construction waves |
 | Construct | code + tests | TDD per wave: Red → Green → Refactor → Validate |
-| Verify | `review.md` | Reviewers chosen by risk, run in parallel (see below) |
+| Verify | `review.md` | `code-reviewer`, plus `security-reviewer` when risky, in parallel (see below) |
 | Release | PR link | Hands off to `ship-n-check` |
 
 You get a checkpoint (**continue / revise / stop**) after every phase except Construct. Say "dev mode" to skip checkpoints for the current work item.
@@ -70,8 +70,8 @@ You get a checkpoint (**continue / revise / stop**) after every phase except Con
 | Vague request | Discovery → Plan → (chosen by Plan) |
 | Bug fix, cause known | Plan → Inception (light) → Construct → Verify → Release |
 | Bug fix, cause unclear | Plan → Investigate → Inception (light) → Construct → Verify → Release |
-| Small feature / refactor | Plan → Inception → Design → Construct → Verify → Release |
-| Full feature | Plan → Inception → Design (+ domain model) → Construct → Verify → Release |
+| Feature / refactor | Plan → Inception → Design → Construct → Verify → Release (Design adds a domain model when there's a new data model) |
+| Any intent, size S | No Design phase, and one checkpoint covering Plan + Inception |
 | Spike | Plan → Inception → Design → STOP |
 | Audit ("review the project") | Plan → Review (`codebase-review`) → STOP; each finding you pick becomes its own work item |
 | Any intent, size L | Plan → offer Breakdown → each child runs its own pipeline |
@@ -80,8 +80,7 @@ You get a checkpoint (**continue / revise / stop**) after every phase except Con
 
 | Change | Reviewers in Verify |
 |---|---|
-| Size S, not security-sensitive | `code-reviewer` |
-| Everything else | `requirements-reviewer` + `code-reviewer` |
+| Every change | `code-reviewer` (code review + acceptance-criteria check) |
 | Security-sensitive (auth, payments, personal data, untrusted input, `securityPaths`) | + `security-reviewer` |
 
 Each reviewer writes its report to `.ai-dlc/<work-id>/` and returns a short pointer, so the main session stays small on large diffs.
@@ -154,13 +153,12 @@ On the first run in a repo, Plan offers to add this to `.gitignore`. It commits 
 | `codebase-review` | Audits existing code (structure, boundaries, tests, tooling, project-wide security) in parallel agents, writes `codebase-review.md` with numbered findings |
 | `handoff` | Writes a self-contained handoff (goal, evidence, decisions, dead ends, next step, git state) and resumes from it |
 
-### Agents (5)
+### Agents (4)
 
 | Agent | Purpose |
 |---|---|
 | `debugger` | Hypothesis-driven root-cause analysis, max 3 rounds, never edits code |
-| `code-reviewer` | Adversarial review: correctness, security, tests, design |
-| `requirements-reviewer` | Checks each acceptance criterion is implemented and tested |
+| `code-reviewer` | Adversarial review: correctness, acceptance criteria vs tests, security, design |
 | `security-reviewer` | OWASP-style review of security-sensitive changes, or of a whole area (`scope: project`) |
 | `architecture-reviewer` | Read-only structure review of existing code against framework conventions |
 
