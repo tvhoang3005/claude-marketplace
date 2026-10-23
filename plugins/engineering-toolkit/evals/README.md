@@ -13,6 +13,7 @@ Behaviour tests for the plugin, run with `claude plugin eval`. Each case is one 
 | `plan-bug-known-pipeline` | Known-cause bug → `bug-fix-known`, no Investigate, checklist format, stops at checkpoint |
 | `plan-flags-security` | Auth change → `Security-sensitive: yes` |
 | `plan-large-offers-breakdown` | Epic → size L and a split offer |
+| `plan-no-ticket-utf8` | No ticket + `UTF-8` in the request → slug work id, `state.md` written, no ticket prompt |
 
 ## Run
 

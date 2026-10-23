@@ -113,6 +113,15 @@ Plan fetches the ticket text when the request contains a ticket id:
 - **GitHub issues:** through `gh issue view`.
 - **Jira:** through a Jira/Atlassian MCP connector, if you have one connected and authorized.
 - **Neither available:** Claude asks you to paste the ticket.
+- **No ticket at all:** just describe the work — `/engineering-toolkit:ai-dlc add dark mode to settings`. The work id becomes a slug (`settings-dark-mode`) and `specs.md` serves as the ticket. Strings like `UTF-8` or `SHA-256` in a request aren't treated as ticket ids.
+
+#### Personal projects (no tracker, maybe no remote)
+
+```json
+{ "ticketSource": "none", "release": "commit-only" }
+```
+
+`ticketSource: none` skips ticket lookup entirely. `release: commit-only` makes Release stop after a tested local commit on a `<type>/<work-id>` branch — no push, PR or CI. Without a config, a repo with no `git remote` gets `commit-only` automatically.
 
 ### Project config (optional)
 

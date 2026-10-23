@@ -10,7 +10,7 @@ You drive the work; the user approves at checkpoints. Stay lean: read each phase
 
 ## 1. Set up the work item
 
-- **Work id:** the ticket id if one is given (e.g. `TICKET-123`), otherwise a short kebab-case slug of the request (e.g. `user-dashboard`).
+- **Work id:** the ticket id if one is given (e.g. `TICKET-123`), otherwise a short kebab-case slug of the request (e.g. `user-dashboard`). No ticket is fine — personal projects without a tracker work the same way ([reference/project-context.md](reference/project-context.md#3-fetch-the-ticket)).
 - **Artifact folder:** `.ai-dlc/<work-id>/`. Create it if missing.
 - **Resume:** if `state.md` already exists there, read it (including its **Project** section) and continue from the first unchecked phase under `## Pipeline`. Tell the user which phase you are resuming.
 

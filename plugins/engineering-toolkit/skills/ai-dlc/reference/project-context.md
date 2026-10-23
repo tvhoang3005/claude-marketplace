@@ -10,8 +10,9 @@ If `.claude/engineering-toolkit.json` exists, read it first. Its values win over
 |---|---|---|
 | `baseBranch` | Branch PRs target | `git symbolic-ref refs/remotes/origin/HEAD`, else `main` |
 | `ticketPattern` | Regex for ticket ids | `[A-Z][A-Z0-9]+-\d+` |
-| `ticketSource` | `github`, `jira`, `paste` or `auto` | `auto` |
+| `ticketSource` | `github`, `jira`, `paste`, `auto`, or `none` (no tracker: never fetch, the request is the ticket) | `auto` |
 | `checkpoints` | `on` or `off` (dev mode by default) | `on` |
+| `release` | `pr` (push + draft PR) or `commit-only` (commit locally, no push/PR) | `pr`; `commit-only` if the repo has no remote |
 | `commands.format/lint/typecheck/test` | Exact commands | detected |
 | `securityPaths` | Globs that always trigger security review | none |
 
@@ -31,7 +32,11 @@ Run the test command once to confirm it works before recording it. If it fails o
 
 ## 3. Fetch the ticket
 
-When the request contains an id matching `ticketPattern`, fetch the ticket text instead of guessing from the id:
+If `ticketSource` is `none`, skip this step: record `Ticket: none` and use the request itself (plus Discovery, if it runs) as the ticket.
+
+A match on `ticketPattern` is only a candidate. Treat it as a ticket id when it names the work item — `work on ABC-12`, `/ai-dlc plan ABC-12`, `#123`. Don't when it is part of the description: encodings, hashes, standards and versions such as `UTF-8`, `SHA-256`, `ISO-8601`, `ES-2022`. If you can't tell, ask once: "Is `<id>` a ticket id, or part of the request?"
+
+For a ticket id, fetch the ticket text instead of guessing from the id:
 
 1. **GitHub issue** (`#123`, `owner/repo#123`, or `ticketSource: github`): `gh issue view <id> --json title,body,labels,comments`.
 2. **Jira** (`ticketSource: jira`, or a Jira-style key when a Jira/Atlassian MCP tool is available): fetch the issue with that tool — summary, description, acceptance criteria and comments.
@@ -39,12 +44,19 @@ When the request contains an id matching `ticketPattern`, fetch the ticket text 
 
 Save the fetched title and a link in `state.md`; Inception reads the full text from there.
 
+**No ticket** (none in the request, or `ticketSource: none`): don't ask for one. The work id is a slug of the request (see SKILL.md), `Ticket: none` goes in `state.md`, and Inception writes `specs.md` from the request — `specs.md` becomes the ticket.
+
+## 4. Release mode
+
+Use `release` from the config if set. Otherwise run `git remote`: no remote → `commit-only`, else `pr`. Record it so `ship-n-check` knows whether to push.
+
 ## Output: Project section of `state.md`
 
 ```markdown
 ## Project
 - Base branch: main
-- Ticket: TICKET-123 — <title> (<url>), source: jira
+- Ticket: TICKET-123 — <title> (<url>), source: jira   |   none
+- Release: pr   |   commit-only (no remote)
 - Commands:
   - format: npm run format:check
   - lint: npm run lint
