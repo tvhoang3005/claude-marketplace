@@ -16,6 +16,8 @@ Licensed under the [MIT License](LICENSE).
 |---|---|
 | **basic-engineering** | Composable skills and agents for everyday software engineering workflows |
 | **engineering-toolkit** | AI-DLC workflow — adaptive Plan → Build → Ship pipeline with checkpoints, review agents and git-safety hook |
+| **nextjs-toolkit** | Next.js 14+ patterns — App Router, Server Components, Server Actions, data fetching and performance |
+| **tauri-toolkit** | Tauri 2 desktop & mobile apps — IPC commands, capability-based security, plugins, auto-update and distribution |
 
 ## Install
 

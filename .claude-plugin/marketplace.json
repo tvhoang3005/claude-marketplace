@@ -30,7 +30,7 @@
     {
       "name": "engineering-toolkit",
       "source": "./plugins/engineering-toolkit",
-      "description": "AI-DLC workflow for Claude Code: an adaptive Plan → Build → Ship pipeline with checkpoints, artifact hand-offs and review agents.",
+      "description": "AI-DLC workflow for Claude Code: an adaptive Plan \u2192 Build \u2192 Ship pipeline with checkpoints, artifact hand-offs and review agents.",
       "version": "0.2.0",
       "author": {
         "name": "Hoang Truong"
@@ -61,6 +61,25 @@
         "app-router",
         "server-components",
         "server-actions"
+      ]
+    },
+    {
+      "name": "tauri-toolkit",
+      "source": "./plugins/tauri-toolkit",
+      "description": "Tauri 2 patterns for cross-platform desktop and mobile apps: project setup, Rust IPC commands, capability-based security, plugins, auto-update and distribution.",
+      "version": "0.1.0",
+      "author": {
+        "name": "Hoang Truong"
+      },
+      "license": "MIT",
+      "category": "development",
+      "keywords": [
+        "tauri",
+        "rust",
+        "desktop",
+        "mobile",
+        "ipc",
+        "security"
       ]
     }
   ]
