@@ -16,6 +16,7 @@ Follow [project-context.md](project-context.md): read the config, detect command
 | `full-feature` | New behaviour across modules, new data model, or new external integration |
 | `refactor` | No behaviour change intended |
 | `spike` | Question to answer, no production code expected |
+| `audit` | Assess existing code — "review the project", "is this structured correctly", "what should we improve" — with no specific change requested |
 
 ## 2. Size
 
@@ -47,6 +48,9 @@ Set `security-sensitive: yes` if any of these apply; Verify then adds a security
 | `full-feature` | plan → inception → design → construct → verify → release |
 | `refactor` | plan → inception → design → construct → verify → release |
 | `spike` | plan → inception → design → STOP |
+| `audit` | plan → review → STOP |
+
+For `audit`, size and risk flags don't apply: write `Size: n/a (audit)` and skip the breakdown offer. The `review` phase hands off to the `codebase-review` skill with this work id; each finding the user wants fixed becomes its own work item.
 
 For `full-feature`, Design must include a domain model section (see design.md).
 

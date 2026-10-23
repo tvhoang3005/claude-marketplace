@@ -8,11 +8,12 @@ Behaviour tests for the plugin, run with `claude plugin eval`. Each case is one 
 | `route-debug-to-investigate` | "Why is this failing" starts `investigate` |
 | `route-ship-to-ship-n-check` | "Ship it" starts `ship-n-check` |
 | `route-split-to-breakdown` | "Break this down" starts `sdlc-breakdown` |
-| `no-trigger-on-general-question` | A general question starts no toolkit skill (all 6) |
+| `no-trigger-on-general-question` | A general question starts no toolkit skill (all 7) |
 | `vague-request-starts-discovery` | Vague request → Discovery questions, no specs |
 | `plan-bug-known-pipeline` | Known-cause bug → `bug-fix-known`, no Investigate, checklist format, stops at checkpoint |
 | `plan-flags-security` | Auth change → `Security-sensitive: yes` |
 | `plan-large-offers-breakdown` | Epic → size L and a split offer |
+| `route-audit-to-codebase-review` | "Is this project structured correctly?" starts `codebase-review` |
 | `route-wrapup-to-handoff` | "Stopping for today, save context" starts `handoff` |
 | `handoff-writes-file` | Handoff file written with `Status: open`, dead ends and a concrete next step |
 | `plan-no-ticket-utf8` | No ticket + `UTF-8` in the request → slug work id, `state.md` written, no ticket prompt |

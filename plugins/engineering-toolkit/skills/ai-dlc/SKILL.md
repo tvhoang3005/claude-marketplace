@@ -1,6 +1,6 @@
 ---
 name: ai-dlc
-description: AI-driven development lifecycle orchestrator. Takes a ticket, feature request, bug or vague idea through an adaptive pipeline (Discovery → Plan → Inception → Design → Construct → Verify → Release) with user checkpoints between phases. Use when the user says "work on TICKET-123", "build this feature", "fix this bug", "implement this", "plan this", "resume TICKET-123", or runs /engineering-toolkit:ai-dlc. Accepts a phase name as the first argument to run one phase only.
+description: AI-driven development lifecycle orchestrator. Takes a ticket, feature request, bug or vague idea through an adaptive pipeline (Discovery → Plan → Inception → Design → Construct → Verify → Release) with user checkpoints between phases; audit requests are handed to codebase-review. Use when the user says "work on TICKET-123", "build this feature", "fix this bug", "implement this", "plan this", "resume TICKET-123", or runs /engineering-toolkit:ai-dlc. Accepts a phase name as the first argument to run one phase only.
 argument-hint: "[discovery|plan|inception|design|construct|verify|release] [ticket-id or description]"
 ---
 
@@ -30,6 +30,7 @@ You drive the work; the user approves at checkpoints. Stay lean: read each phase
 | Plan | [reference/plan.md](reference/plan.md) | `state.md` | Yes |
 | Breakdown (size L only) | use the `sdlc-breakdown` skill | `breakdown.md` | Yes |
 | Investigate | use the `investigate` skill | `investigation.md` | Yes |
+| Review (audit only) | use the `codebase-review` skill | `codebase-review.md` | Yes — pipeline ends here |
 | Inception | [reference/inception.md](reference/inception.md) | `specs.md` | Yes |
 | Design | [reference/design.md](reference/design.md) | `design.md` | Yes |
 | Construct | [reference/construct.md](reference/construct.md) | code + tests | No — goes straight to Verify |
