@@ -1,0 +1,15 @@
+schema_version: "1.1"
+name: route-permission-error-to-tauri-desktop
+description: A Tauri capability/permission error should start the tauri-desktop skill.
+tags: [routing]
+runs: 3
+execution:
+  max_turns: 6
+  allowed_tools: [Read, Glob, Grep, Skill]
+  prompt: |
+    My Tauri app throws "fs.read_text_file not allowed. Permissions associated with this command: fs:allow-read-text-file" when I call readTextFile from @tauri-apps/plugin-fs. What do I change in src-tauri/capabilities?
+graders:
+  - name: tauri-desktop-fired
+    type: tool_used
+    tool: Skill
+    input_match: '"skill"\s*:\s*"(?:tauri-toolkit:)?tauri-desktop"'
