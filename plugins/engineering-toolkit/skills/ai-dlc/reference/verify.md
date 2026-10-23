@@ -6,19 +6,16 @@ Check the change against the specs and review it adversarially. Choose reviewers
 
 | Condition (from `state.md`) | Reviewers |
 |---|---|
-| Size S and `security-sensitive: no` | `code-reviewer` |
-| Otherwise | `requirements-reviewer` + `code-reviewer` |
-| `security-sensitive: yes` (any size) | add `security-reviewer` |
-
-For size S, `code-reviewer` also confirms each AC has a test; there is no separate requirements report.
+| Always | `code-reviewer` — code review plus the acceptance-criteria check against `specs.md` |
+| `security-sensitive: yes` | add `security-reviewer` |
 
 ## Brief each reviewer
 
 Give every reviewer:
 
-- the work id and the output path it must write to (see the table in [artifacts.md](artifacts.md)),
+- the work id and the output path it must write to (`code-review.md`, `security-review.md`),
 - the changed files: `git diff --name-only <base-branch>...HEAD` plus uncommitted changes,
-- `specs.md` path (`requirements-reviewer`, and `code-reviewer` for size S),
+- `specs.md` path (`code-reviewer`),
 - the risk flags from `state.md`, and the absolute path of `../security-review/reference/secure-coding-patterns.md` resolved from the ai-dlc skill's base directory (`security-reviewer`).
 
 Each returns a pointer (status, report path, ≤ 5-line summary). Read the report files to merge them.
@@ -28,7 +25,7 @@ Each returns a pointer (status, report path, ≤ 5-line summary). Read the repor
 ```markdown
 # Review: <work-id>
 
-Reviewers: code-reviewer, requirements-reviewer[, security-reviewer]
+Reviewers: code-reviewer[, security-reviewer]
 
 ## Acceptance criteria
 | AC | Status | Evidence |

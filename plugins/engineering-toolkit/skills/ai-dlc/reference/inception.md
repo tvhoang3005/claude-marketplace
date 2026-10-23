@@ -11,6 +11,8 @@ Turn the request into testable requirements. Inputs: `state.md`, plus `discovery
 
 **Light mode** (bug fixes): one acceptance criterion for the fix, one regression criterion, no NFR section.
 
+**Size S** (no Design phase follows): add a `## Files to touch` list — path and the change in one line each. Construct works from it.
+
 ## Output: `specs.md`
 
 ```markdown

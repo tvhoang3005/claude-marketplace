@@ -4,7 +4,7 @@ Classify the request and choose the pipeline. Read enough of the codebase to jud
 
 ## 0. Project context
 
-Follow [project-context.md](project-context.md): read the config, detect commands, and fetch the ticket. On the first run in a repo, also check the `.gitignore` block from [artifacts.md](artifacts.md).
+Follow [project-context.md](project-context.md): read the config, detect commands, fetch the ticket, and check `.gitignore` on the first run in a repo.
 
 ## 1. Classify intent
 
@@ -12,8 +12,7 @@ Follow [project-context.md](project-context.md): read the config, detect command
 |---|---|
 | `bug-fix-known` | Broken behaviour, cause is identified or obvious |
 | `bug-fix-unclear` | Broken behaviour, cause unknown |
-| `small-feature` | New behaviour touching 1–2 modules, no new data model |
-| `full-feature` | New behaviour across modules, new data model, or new external integration |
+| `feature` | New behaviour |
 | `refactor` | No behaviour change intended |
 | `spike` | Question to answer, no production code expected |
 | `audit` | Assess existing code — "review the project", "is this structured correctly", "what should we improve" — with no specific change requested |
@@ -44,15 +43,13 @@ Set `security-sensitive: yes` if any of these apply; Verify then adds a security
 |---|---|
 | `bug-fix-known` | plan → inception (light) → construct → verify → release |
 | `bug-fix-unclear` | plan → investigate → inception (light) → construct → verify → release |
-| `small-feature` | plan → inception → design → construct → verify → release |
-| `full-feature` | plan → inception → design → construct → verify → release |
-| `refactor` | plan → inception → design → construct → verify → release |
+| `feature`, `refactor` | plan → inception → design → construct → verify → release |
 | `spike` | plan → inception → design → STOP |
 | `audit` | plan → review → STOP |
 
-For `audit`, size and risk flags don't apply: write `Size: n/a (audit)` and skip the breakdown offer. The `review` phase hands off to the `codebase-review` skill with this work id; each finding the user wants fixed becomes its own work item.
-
-For `full-feature`, Design must include a domain model section (see design.md).
+- **Size S:** drop `design` — Inception lists the files to touch and Construct runs one wave from `specs.md`.
+- **New data model** (`feature`): Design includes the domain model section.
+- **`audit`:** size and risk flags don't apply: write `Size: n/a (audit)` and skip the breakdown offer. The `review` phase hands off to the `codebase-review` skill with this work id; each finding the user wants fixed becomes its own work item.
 
 ## Output: `state.md`
 

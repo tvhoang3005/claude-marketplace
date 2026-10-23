@@ -1,6 +1,6 @@
 ---
 name: ai-dlc
-description: AI-driven development lifecycle orchestrator. Takes a ticket, feature request, bug or vague idea through an adaptive pipeline (Discovery → Plan → Inception → Design → Construct → Verify → Release) with user checkpoints between phases; audit requests are handed to codebase-review. Use when the user says "work on TICKET-123", "build this feature", "fix this bug", "implement this", "plan this", "resume TICKET-123", or runs /engineering-toolkit:ai-dlc. Accepts a phase name as the first argument to run one phase only.
+description: Development lifecycle orchestrator — takes a ticket, feature, bug or vague idea through an adaptive pipeline (Plan → Inception → Design → Construct → Verify → Release) with user checkpoints. Use when the user says "work on TICKET-123", "build this feature", "fix this bug", "implement this", "plan this", "resume TICKET-123", or runs /engineering-toolkit:ai-dlc. Accepts a phase name as the first argument to run one phase only.
 argument-hint: "[discovery|plan|inception|design|construct|verify|release] [ticket-id or description]"
 ---
 
@@ -41,7 +41,7 @@ Plan decides which phases run. Follow the `## Pipeline` checklist in `state.md`;
 
 ## 4. Checkpoints
 
-After each phase marked "Yes" above:
+After each phase marked "Yes" above (size S: skip the Plan checkpoint and continue to Inception; its checkpoint shows the classification and the specs together):
 
 1. Tick the phase in `state.md` (`- [x] <phase> — done`).
 2. Show the user a summary of at most 5 bullets plus the artifact path.
@@ -55,4 +55,5 @@ Skip checkpoints for this work item if the user says "dev mode" or "no checkpoin
 - Never claim a phase is done without evidence produced in this session (test output, command output, file written).
 - Write each artifact before summarizing it; the file is the contract for the next phase.
 - Use the commands recorded in the Project section of `state.md`; don't rediscover them.
+- Keep command output small: run the narrowest test that proves the point, use quiet/summary reporters, and read only the summary and failures (e.g. pipe through `tail -n 40`). Never paste a full log into context or an artifact.
 - When something in the request is ambiguous and the answer changes what you build, ask — don't guess.
