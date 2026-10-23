@@ -1,6 +1,7 @@
 #!/usr/bin/env node
-// SessionStart hook: lists AI-DLC work items with unfinished phases so the user can resume them.
-// Reads .ai-dlc/*/state.md and looks at the "## Pipeline" checklist written by the Plan phase.
+// SessionStart hook: lists AI-DLC work items with unfinished phases, and open handoffs, so the user can resume them.
+// Reads the "## Pipeline" checklist in .ai-dlc/*/state.md (written by Plan) and the "Status: open" line in
+// .ai-dlc/*/handoff.md and .ai-dlc/handoffs/*.md (written by the handoff skill).
 
 const fs = require("fs");
 const path = require("path");
@@ -33,6 +34,35 @@ function unfinishedItem(dir, workId) {
   return { workId, next: pending[0], mtime };
 }
 
+function openHandoff(file) {
+  let text;
+  try {
+    text = fs.readFileSync(file, "utf8");
+  } catch {
+    return null;
+  }
+  if (!/^Status:\s*open\s*$/m.test(text.split("\n").slice(0, 5).join("\n"))) return null;
+  return { file, mtime: fs.statSync(file).mtimeMs };
+}
+
+function listOpenHandoffs(dir, workIds) {
+  const files = workIds.map((id) => path.join(dir, id, "handoff.md"));
+  try {
+    for (const name of fs.readdirSync(path.join(dir, "handoffs"))) {
+      if (name.endsWith(".md")) files.push(path.join(dir, "handoffs", name));
+    }
+  } catch {
+    // No standalone handoffs.
+  }
+  return files.map(openHandoff).filter(Boolean).sort((a, b) => b.mtime - a.mtime);
+}
+
+function capped(lines) {
+  const shown = lines.slice(0, MAX_ITEMS);
+  if (lines.length > MAX_ITEMS) shown.push(`- …and ${lines.length - MAX_ITEMS} more in .ai-dlc/`);
+  return shown.join("\n");
+}
+
 const cwd = readInput().cwd || process.cwd();
 const artifactsDir = path.join(cwd, ".ai-dlc");
 
@@ -48,14 +78,25 @@ const items = workIds
   .filter(Boolean)
   .sort((a, b) => b.mtime - a.mtime);
 
-if (items.length === 0) process.exit(0);
+const handoffs = listOpenHandoffs(artifactsDir, workIds);
 
-const lines = items.slice(0, MAX_ITEMS).map((i) => `- ${i.workId}: next phase "${i.next}"`);
-if (items.length > MAX_ITEMS) lines.push(`- …and ${items.length - MAX_ITEMS} more in .ai-dlc/`);
+if (items.length === 0 && handoffs.length === 0) process.exit(0);
 
-const context =
-  "engineering-toolkit: unfinished AI-DLC work items in this repo (most recent first):\n" +
-  lines.join("\n") +
-  "\nIf the user's request relates to one of these, offer to resume it with /engineering-toolkit:ai-dlc <work-id>. Otherwise don't mention them.";
+const parts = [];
+if (items.length > 0) {
+  parts.push(
+    "engineering-toolkit: unfinished AI-DLC work items in this repo (most recent first):\n" +
+      capped(items.map((i) => `- ${i.workId}: next phase "${i.next}"`)) +
+      "\nIf the user's request relates to one of these, offer to resume it with /engineering-toolkit:ai-dlc <work-id>. Otherwise don't mention them."
+  );
+}
+if (handoffs.length > 0) {
+  parts.push(
+    "engineering-toolkit: open handoffs from earlier sessions (most recent first):\n" +
+      capped(handoffs.map((h) => `- ${path.relative(cwd, h.file)}`)) +
+      "\nIf the user wants to continue earlier work, offer /engineering-toolkit:handoff resume <path>. Otherwise don't mention them."
+  );
+}
+const context = parts.join("\n\n");
 
 process.stdout.write(JSON.stringify({ hookSpecificOutput: { hookEventName: "SessionStart", additionalContext: context } }));

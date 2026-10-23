@@ -140,7 +140,7 @@ On the first run in a repo, Plan offers to add this to `.gitignore`. It commits 
 
 ## Contents
 
-### Skills (5)
+### Skills (6)
 
 | Skill | Purpose |
 |---|---|
@@ -149,6 +149,7 @@ On the first run in a repo, Plan offers to add this to `.gitignore`. It commits 
 | `ship-n-check` | Branch → commit → format/lint/type-check/test → push → draft PR → CI watch |
 | `investigate` | Delegates to `debugger`, writes `investigation.md`, recommends a fix |
 | `sdlc-breakdown` | Splits large work into vertical, independently shippable child items |
+| `handoff` | Writes a self-contained handoff (goal, evidence, decisions, dead ends, next step, git state) and resumes from it |
 
 ### Agents (4)
 
@@ -164,7 +165,7 @@ On the first run in a repo, Plan offers to add this to `.gitignore`. It commits 
 | Hook | Trigger | What it does |
 |---|---|---|
 | `git-safety` | PreToolUse (Bash) | Blocks `--no-verify`, force-push to main/master, `reset --hard`, `clean -f`, `checkout .`, `branch -D main` |
-| `resume-work` | SessionStart | Lists unfinished work items from `.ai-dlc/*/state.md` |
+| `resume-work` | SessionStart | Lists unfinished work items from `.ai-dlc/*/state.md` and open handoffs (`Status: open`) |
 
 ### Evals
 
@@ -184,7 +185,7 @@ On the first run in a repo, Plan offers to add this to `.gitignore`. It commits 
 Planned for later versions:
 
 - **Phases:** Observe (post-deploy health checks), separate Domain and Logical Design
-- **Skills:** `mode-dev` / `mode-research` / `mode-review`, `ship-pr-review`, `daily-summary`, `review-learning`, `update-docs`, `handoff`, `create-user-story`
+- **Skills:** `mode-dev` / `mode-research` / `mode-review`, `ship-pr-review`, `daily-summary`, `review-learning`, `update-docs`, `create-user-story`
 - **Agents:** `scout`, `inspector`, `steward`, `ci-watcher`, Jira `clerk`
 - **Rules:** language rules for TypeScript, Python and Go; testing, naming and logging rules
 - **Hooks:** configurable `ship-conventions`, sensitive-file warning, debug-statement detection
