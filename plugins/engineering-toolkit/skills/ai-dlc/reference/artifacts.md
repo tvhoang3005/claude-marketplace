@@ -18,6 +18,7 @@ Every work item has a folder `.ai-dlc/<work-id>/`. Phases and agents communicate
 | `handoff.md` | `handoff` skill | Transient | No |
 | `architecture-review.md` | `architecture-reviewer` | Transient | No |
 | `codebase-review.md` | `codebase-review` (merged) | Transient | No |
+| `ux-review.md`, `ux/` (screenshots, `capture.json`) | `ux-review` / `ux-reviewer` | Transient | No |
 
 Handoffs not tied to a work item go in `.ai-dlc/handoffs/<yyyy-mm-dd>-<slug>.md` — also transient and ignored by the block below.
 
