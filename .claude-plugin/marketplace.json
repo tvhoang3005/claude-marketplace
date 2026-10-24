@@ -1,37 +1,21 @@
 {
   "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
-  "name": "hoangtruong-marketplace",
+  "name": "hoangtruong",
   "owner": {
     "name": "Hoang Truong",
     "url": "https://github.com/tvhoang3005"
   },
   "metadata": {
     "description": "A collection of Claude Code plugins for software engineering workflows.",
-    "version": "0.1.0",
+    "version": "0.2.0",
     "pluginRoot": "./plugins"
   },
   "plugins": [
     {
-      "name": "basic-engineering",
-      "source": "./plugins/basic-engineering",
-      "description": "Composable skills and agents for everyday software engineering workflows.",
-      "version": "0.1.0",
-      "author": {
-        "name": "Hoang Truong"
-      },
-      "license": "MIT",
-      "category": "development",
-      "keywords": [
-        "engineering",
-        "sdlc",
-        "workflow"
-      ]
-    },
-    {
-      "name": "engineering-toolkit",
-      "source": "./plugins/engineering-toolkit",
-      "description": "AI-DLC workflow for Claude Code: an adaptive Plan \u2192 Build \u2192 Ship pipeline with checkpoints, artifact hand-offs and review agents.",
-      "version": "0.6.0",
+      "name": "dev",
+      "source": "./plugins/dev",
+      "description": "AI-DLC workflow for Claude Code: an adaptive Plan → Build → Ship pipeline with checkpoints, artifact hand-offs and review agents.",
+      "version": "0.7.0",
       "author": {
         "name": "Hoang Truong"
       },
@@ -46,10 +30,10 @@
       ]
     },
     {
-      "name": "nextjs-toolkit",
-      "source": "./plugins/nextjs-toolkit",
+      "name": "nextjs",
+      "source": "./plugins/nextjs",
       "description": "Next.js 14+ patterns for App Router, Server Components, Server Actions, data fetching, and performance.",
-      "version": "0.1.1",
+      "version": "0.2.0",
       "author": {
         "name": "Hoang Truong"
       },
@@ -64,10 +48,10 @@
       ]
     },
     {
-      "name": "tauri-toolkit",
-      "source": "./plugins/tauri-toolkit",
+      "name": "tauri",
+      "source": "./plugins/tauri",
       "description": "Tauri 2 patterns for cross-platform desktop and mobile apps: project setup, Rust IPC commands, capability-based security, plugins, auto-update and distribution.",
-      "version": "0.1.0",
+      "version": "0.2.0",
       "author": {
         "name": "Hoang Truong"
       },
@@ -83,10 +67,10 @@
       ]
     },
     {
-      "name": "pwa-toolkit",
-      "source": "./plugins/pwa-toolkit",
+      "name": "pwa",
+      "source": "./plugins/pwa",
       "description": "Progressive Web App patterns: manifest and install, service worker lifecycle and updates, offline storage, push, deploy headers and Mobile Safari quirks.",
-      "version": "0.1.0",
+      "version": "0.2.0",
       "author": {
         "name": "Hoang Truong"
       },

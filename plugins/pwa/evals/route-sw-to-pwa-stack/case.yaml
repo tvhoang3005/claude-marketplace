@@ -1,0 +1,15 @@
+schema_version: "1.1"
+name: route-sw-to-pwa-stack
+description: A stale-version service worker problem should start the pwa-stack skill.
+tags: [routing, smoke]
+runs: 3
+execution:
+  max_turns: 6
+  allowed_tools: [Read, Glob, Grep, Skill]
+  prompt: |
+    After every deploy, users of our installed PWA keep seeing the old version until they close the app twice. Our sw.js precaches the build. How should the service worker update flow work?
+graders:
+  - name: pwa-stack-fired
+    type: tool_used
+    tool: Skill
+    input_match: '"skill"\s*:\s*"(?:pwa:)?pwa-stack"'

@@ -1,0 +1,10 @@
+{
+  "name": "tauri",
+  "version": "0.2.0",
+  "description": "Tauri 2 patterns for cross-platform desktop and mobile apps: project setup, Rust IPC commands, capability-based security, plugins, auto-update and distribution.",
+  "author": { "name": "Hoang Truong", "url": "https://github.com/tvhoang3005" },
+  "homepage": "https://github.com/tvhoang3005/claude-marketplace",
+  "repository": "https://github.com/tvhoang3005/claude-marketplace",
+  "license": "MIT",
+  "keywords": ["tauri", "rust", "desktop", "mobile", "ipc", "security"]
+}
