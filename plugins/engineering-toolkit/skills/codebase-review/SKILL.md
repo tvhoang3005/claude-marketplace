@@ -19,7 +19,7 @@ Assess what exists; don't change it. The output is a findings report the user ca
 
 Detect the stack from manifests (`package.json`, `Cargo.toml`, `src-tauri/`, `next.config.*`, `pyproject.toml`, `go.mod`…) and record the framework **and major version**.
 
-If a skill for that stack is available in this session (for example `tauri-toolkit:tauri-desktop`, `nextjs-toolkit:nextjs-stack`), load it and collect the absolute paths of the reference files relevant to the focus. Those references are the yardstick. If no stack skill is available, say so in the report: findings then rest on general engineering practice and the project's own conventions, and are labelled that way.
+If a skill for that stack is available in this session (for example `tauri-toolkit:tauri-desktop`, `nextjs-toolkit:nextjs-stack`, `pwa-toolkit:pwa-stack`), load it and collect the absolute paths of the reference files relevant to the focus. Those references are the yardstick. If no stack skill is available, say so in the report: findings then rest on general engineering practice and the project's own conventions, and are labelled that way.
 
 ## 3. Delegate, in parallel
 

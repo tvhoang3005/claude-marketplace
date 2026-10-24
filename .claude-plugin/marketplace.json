@@ -31,7 +31,7 @@
       "name": "engineering-toolkit",
       "source": "./plugins/engineering-toolkit",
       "description": "AI-DLC workflow for Claude Code: an adaptive Plan \u2192 Build \u2192 Ship pipeline with checkpoints, artifact hand-offs and review agents.",
-      "version": "0.5.1",
+      "version": "0.5.2",
       "author": {
         "name": "Hoang Truong"
       },
@@ -80,6 +80,25 @@
         "mobile",
         "ipc",
         "security"
+      ]
+    },
+    {
+      "name": "pwa-toolkit",
+      "source": "./plugins/pwa-toolkit",
+      "description": "Progressive Web App patterns: manifest and install, service worker lifecycle and updates, offline storage, push, deploy headers and Mobile Safari quirks.",
+      "version": "0.1.0",
+      "author": {
+        "name": "Hoang Truong"
+      },
+      "license": "MIT",
+      "category": "development",
+      "keywords": [
+        "pwa",
+        "service-worker",
+        "offline",
+        "web-push",
+        "manifest",
+        "safari"
       ]
     }
   ]
