@@ -1,0 +1,22 @@
+schema_version: "1.1"
+name: route-ux-to-ux-review
+description: Asking for UX improvements to existing screens should start ux-review, not codebase-review.
+tags: [routing, smoke]
+runs: 3
+execution:
+  max_turns: 6
+  allowed_tools: [Read, Glob, Grep, Skill]
+  prompt: |
+    Our onboarding and home screen feel clunky on mobile. Can you look at the UI and suggest UX improvements?
+graders:
+  - name: ux-review-fired
+    type: tool_used
+    tool: Skill
+    input_match: '"skill"\s*:\s*"(?:dev:)?ux-review"'
+  - name: codebase-review-not-fired
+    type: tool_used
+    tool: Skill
+    input_match: '"skill"\s*:\s*"(?:dev:)?codebase-review"'
+    min: 0
+    max: 0
+    arm: both

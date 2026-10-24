@@ -14,11 +14,10 @@ Licensed under the [MIT License](LICENSE).
 
 | Plugin | Description |
 |---|---|
-| **basic-engineering** | Composable skills and agents for everyday software engineering workflows |
-| **engineering-toolkit** | AI-DLC workflow — adaptive Plan → Build → Ship pipeline with checkpoints, review agents and git-safety hook |
-| **nextjs-toolkit** | Next.js 14+ patterns — App Router, Server Components, Server Actions, data fetching and performance |
-| **pwa-toolkit** | Progressive Web Apps — manifest/install, service worker updates, offline storage, push, deploy headers, Mobile Safari |
-| **tauri-toolkit** | Tauri 2 desktop & mobile apps — IPC commands, capability-based security, plugins, auto-update and distribution |
+| **dev** | AI-DLC workflow — adaptive Plan → Build → Ship pipeline with checkpoints, review agents and git-safety hook; also UX, codebase and frontend reviews |
+| **nextjs** | Next.js 14+ patterns — App Router, Server Components, Server Actions, data fetching and performance |
+| **pwa** | Progressive Web Apps — manifest/install, service worker updates, offline storage, push, deploy headers, Mobile Safari |
+| **tauri** | Tauri 2 desktop & mobile apps — IPC commands, capability-based security, plugins, auto-update and distribution |
 
 ## Install
 
@@ -26,9 +25,22 @@ Licensed under the [MIT License](LICENSE).
 # 1. Add the marketplace
 /plugin marketplace add tvhoang3005/claude-marketplace
 
-# 2. Install the plugin
-/plugin install basic-engineering@hoangtruong-marketplace
+# 2. Install a plugin
+/plugin install dev@hoangtruong
 ```
+
+### Upgrading from the old names
+
+Until 0.7 the plugins were `engineering-toolkit`, `tauri-toolkit`, `pwa-toolkit` and `nextjs-toolkit` in the `hoangtruong-marketplace` marketplace, and `basic-engineering` (now part of `dev`). Remove them and add the marketplace again:
+
+```bash
+claude plugin uninstall engineering-toolkit@hoangtruong-marketplace   # and the other old plugins
+claude plugin marketplace remove hoangtruong-marketplace
+claude plugin marketplace add tvhoang3005/claude-marketplace
+claude plugin install dev@hoangtruong
+```
+
+An existing `.claude/engineering-toolkit.json` keeps working; new projects use `.claude/ai-dlc.json`.
 
 ## Repository layout
 
@@ -43,5 +55,5 @@ templates/plugin-template/        # Copy this to start a new plugin
 1. Copy `templates/plugin-template/` to `plugins/<plugin-name>/` and replace `PLUGIN_NAME` / `PLUGIN_DESCRIPTION`.
 2. Add an entry to `plugins` in `.claude-plugin/marketplace.json` with `"source": "./plugins/<plugin-name>"`.
 3. Validate: `claude plugin validate .` and `claude plugin validate ./plugins/<plugin-name>`.
-4. Test locally: `/plugin marketplace add ./` then `/plugin install <plugin-name>@hoangtruong-marketplace`.
+4. Test locally: `/plugin marketplace add ./` then `/plugin install <plugin-name>@hoangtruong`.
 5. Bump `version` in both `plugin.json` and the marketplace entry when releasing changes.

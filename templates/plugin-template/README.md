@@ -6,7 +6,7 @@ PLUGIN_DESCRIPTION
 
 ```bash
 /plugin marketplace add tvhoang3005/claude-marketplace
-/plugin install PLUGIN_NAME@hoangtruong-marketplace
+/plugin install PLUGIN_NAME@hoangtruong
 ```
 
 ## Contents

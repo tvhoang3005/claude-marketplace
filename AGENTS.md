@@ -1,6 +1,6 @@
 # AP Claude Marketplace
 
-This repository is a Claude Code plugin marketplace named `hoangtruong-marketplace`. The catalog is `.claude-plugin/marketplace.json`; each plugin lives under `plugins/` and follows the standard plugin structure. New plugins start as a copy of `templates/plugin-template/`.
+This repository is a Claude Code plugin marketplace named `hoangtruong`. The catalog is `.claude-plugin/marketplace.json`; each plugin lives under `plugins/` and follows the standard plugin structure. New plugins start as a copy of `templates/plugin-template/`.
 
 ## Plugin Structure
 
@@ -21,6 +21,7 @@ plugins/<plugin-name>/
 
 ## Conventions
 
+- Plugin names are one short lowercase word, without suffixes such as `-toolkit` or `-plugin` (`dev`, `pwa`, `tauri`) — they prefix every skill and agent name
 - Skills are invoked as `/<plugin-name>:<skill-name>`
 - Each skill must have a `SKILL.md` with frontmatter (name, description)
 - Reference files are loaded on-demand by skills, not eagerly
