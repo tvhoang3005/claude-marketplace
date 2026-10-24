@@ -98,6 +98,7 @@ Each reviewer writes its report to `.ai-dlc/<work-id>/` and returns a short poin
 | Debug something | "why is this failing?" | `investigate` — hypothesis-driven, never fixes |
 | Split a big ticket | "break this down" | `sdlc-breakdown` — vertical slices, each shippable |
 | Check for vulnerabilities | "security review this branch" | `security-review` — CWE-mapped findings with fixes |
+| Get UI/UX suggestions | "review the UX of the capture flow", "how can we improve this screen?" | `ux-review` — screenshots + axe + touch targets, judged against your design rules first |
 | Audit an existing project | "review this project's structure", "what should we improve?" | `codebase-review` — prioritized findings with `file:line`, using a stack plugin (e.g. `tauri-toolkit`) as yardstick when installed |
 | Ship your code | "ship it", "commit and push", "create a PR" | `ship-n-check` — branch, quality, draft PR, CI |
 
@@ -144,7 +145,7 @@ On the first run in a repo, Plan offers to add this to `.gitignore`. It commits 
 
 ## Contents
 
-### Skills (7)
+### Skills (8)
 
 | Skill | Purpose |
 |---|---|
@@ -154,15 +155,17 @@ On the first run in a repo, Plan offers to add this to `.gitignore`. It commits 
 | `investigate` | Delegates to `debugger`, writes `investigation.md`, recommends a fix |
 | `sdlc-breakdown` | Splits large work into vertical, independently shippable child items |
 | `codebase-review` | Audits existing code (structure, boundaries, tests, tooling, project-wide security) in parallel agents, writes `codebase-review.md` with numbered findings |
+| `ux-review` | Captures screenshots, axe results and touch-target sizes with the project's Playwright, then `ux-reviewer` writes numbered, screenshot-backed suggestions (project rules first; conflicts become tensions) |
 | `handoff` | Writes a self-contained handoff (goal, evidence, decisions, dead ends, next step, git state) and resumes from it |
 
-### Agents (4)
+### Agents (5)
 
 | Agent | Purpose |
 |---|---|
 | `debugger` | Hypothesis-driven root-cause analysis, max 3 rounds, never edits code |
 | `code-reviewer` | Adversarial review: correctness, acceptance criteria vs tests, security, design |
 | `security-reviewer` | OWASP-style review of security-sensitive changes, or of a whole area (`scope: project`) |
+| `ux-reviewer` | Reviews screenshots and accessibility data against the project's design rules and UX heuristics |
 | `architecture-reviewer` | Read-only structure review of existing code against framework conventions |
 
 ### Hooks (2)
