@@ -8,6 +8,8 @@ model: sonnet
 
 Opinionated Next.js patterns for App Router (Next.js 14+). Before applying any topic, read its reference file in `reference/`.
 
+Check the project's Next.js version (`package.json`) and router (`app/` vs `pages/`) first. If the project uses the Pages Router or a version below 14, say so before applying these patterns, and never mix App Router and Pages Router advice in one recommendation.
+
 ## When to Apply
 
 This skill auto-triggers when working in a Next.js codebase. Apply these patterns:

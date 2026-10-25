@@ -15,7 +15,7 @@ The skill triggers automatically when Claude sees a Tauri project (`src-tauri/`,
 
 ```bash
 # Explicit invocation
-/tauri:tauri-desktop
+/tauri:tauri-stack
 
 # Auto-triggers on requests like:
 # "add a Rust command that saves settings"
@@ -28,7 +28,7 @@ The skill triggers automatically when Claude sees a Tauri project (`src-tauri/`,
 
 | Type | Name | Invoke |
 |---|---|---|
-| Skill | tauri-desktop | `/tauri:tauri-desktop` |
+| Skill | tauri-stack | `/tauri:tauri-stack` |
 | Rule | tauri-security | applies automatically to `src-tauri/**` |
 
 ## Reference Topics (5)

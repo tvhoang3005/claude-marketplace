@@ -2,7 +2,7 @@
 
 An opinionated toolkit for Claude Code that introduces the **AI-DLC** (AI-driven development lifecycle) workflow: an adaptive pipeline from requirements to pull request, where the AI drives and you approve at checkpoints.
 
-> **v0.2.** AI-DLC orchestrator, shipping pipeline, investigation, ticket breakdown, four review agents, git-safety and resume hooks, and an eval suite. See [Roadmap](#roadmap) for what's planned.
+> **v0.7.** AI-DLC orchestrator, shipping pipeline, investigation, ticket breakdown, codebase and UX reviews, five review agents, git-safety and resume hooks, and an eval suite. See [Roadmap](#roadmap) for what's planned.
 
 ## Install
 
@@ -43,7 +43,7 @@ Requires Node.js on `PATH` for the hooks. `gh` is optional (GitHub issues, PRs a
       (if vague)   (classify,   Design → Construct  (1–2 agents)  (delegates)
                    size, risk)                                        |
                         |                                             v
-                  size L? → sdlc-breakdown                   +--------------+
+                  size L? → breakdown                        +--------------+
                                                              | ship-n-check |
                                                              +--------------+
                                                        Branch → Quality → PR → CI
@@ -95,7 +95,7 @@ Each reviewer writes its report to `.ai-dlc/<work-id>/` and returns a short poin
 | Build a feature | "build a user dashboard" | `ai-dlc` — Discovery if vague, Plan if clear |
 | Fix a bug | "fix the auth bug" | `ai-dlc` — adds Investigate if the cause is unclear |
 | Debug something | "why is this failing?" | `investigate` — hypothesis-driven, never fixes |
-| Split a big ticket | "break this down" | `sdlc-breakdown` — vertical slices, each shippable |
+| Split a big ticket | "break this down" | `breakdown` — vertical slices, each shippable |
 | Check for vulnerabilities | "security review this branch" | `security-review` — CWE-mapped findings with fixes |
 | Get UI/UX suggestions | "review the UX of the capture flow", "how can we improve this screen?" | `ux-review` — screenshots + axe + touch targets, judged against your design rules first |
 | Audit an existing project | "review this project's structure", "what should we improve?" | `codebase-review` — prioritized findings with `file:line`, using a stack plugin (e.g. `tauri`) as yardstick when installed |
@@ -145,7 +145,7 @@ On the first run in a repo, Plan offers to add this to `.gitignore`. It commits 
 
 ## Contents
 
-### Skills (8)
+### Skills (9)
 
 | Skill | Purpose |
 |---|---|
@@ -153,10 +153,11 @@ On the first run in a repo, Plan offers to add this to `.gitignore`. It commits 
 | `ai-dlc` | Orchestrator for the full lifecycle; phase guides live in `skills/ai-dlc/reference/` |
 | `ship-n-check` | Branch → commit → format/lint/type-check/test → push → draft PR → CI watch |
 | `investigate` | Delegates to `debugger`, writes `investigation.md`, recommends a fix |
-| `sdlc-breakdown` | Splits large work into vertical, independently shippable child items |
+| `breakdown` | Splits large work into vertical, independently shippable child items |
 | `codebase-review` | Audits existing code (structure, boundaries, tests, tooling, project-wide security) in parallel agents, writes `codebase-review.md` with numbered findings |
 | `ux-review` | Captures screenshots, axe results and touch-target sizes with the project's Playwright, then `ux-reviewer` writes numbered, screenshot-backed suggestions (project rules first; conflicts become tensions) |
 | `handoff` | Writes a self-contained handoff (goal, evidence, decisions, dead ends, next step, git state) and resumes from it |
+| `frontend-engineering` | Frontend architecture rules for React, Next.js and React Native: design tokens, wrapped library components, atomic layers, feature folders |
 
 ### Agents (5)
 
@@ -167,6 +168,13 @@ On the first run in a repo, Plan offers to add this to `.gitignore`. It commits 
 | `security-reviewer` | OWASP-style review of security-sensitive changes, or of a whole area (`scope: project`) |
 | `ux-reviewer` | Reviews screenshots and accessibility data against the project's design rules and UX heuristics |
 | `architecture-reviewer` | Read-only structure review of existing code against framework conventions |
+
+### Rules (2)
+
+| Rule | Applies to | What it enforces |
+|---|---|---|
+| `evidence-based` | all files | Back non-obvious claims with checkable evidence (`path:line`, docs, command output); state assumptions; say "I don't know" rather than guess |
+| `testing` | `*.test.*`, `*.spec.*` | One behaviour per test, Arrange/Act/Assert, no network or clock in unit tests |
 
 ### Hooks (2)
 
@@ -195,6 +203,6 @@ Planned for later versions:
 - **Phases:** Observe (post-deploy health checks), separate Domain and Logical Design
 - **Skills:** `mode-dev` / `mode-research` / `mode-review`, `ship-pr-review`, `daily-summary`, `review-learning`, `update-docs`, `create-user-story`
 - **Agents:** `scout`, `inspector`, `steward`, `ci-watcher`, Jira `clerk`
-- **Rules:** language rules for TypeScript, Python and Go; naming and logging rules (a `testing` rule ships now)
+- **Rules:** language rules for TypeScript, Python and Go; naming and logging rules
 - **Hooks:** configurable `ship-conventions`, sensitive-file warning, debug-statement detection
 - **Stacks:** separate `nestjs` and `django` plugins (`nextjs`, `tauri` and `pwa` are available now — see [Install](#install))

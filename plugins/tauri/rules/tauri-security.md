@@ -16,4 +16,4 @@ The webview is untrusted. When editing Rust commands, capabilities or `tauri.con
 - **No secrets in the bundle.** Updater private keys, API secrets and signing certificates live in CI secrets or the OS keychain, never in the repo or binary.
 - **No `unwrap()` on frontend-controlled data** in commands — return the app `Error` instead of panicking.
 
-When a change adds a command or permission, say which permission/scope was added and why it is the minimum needed. For details, use the `tauri-desktop` skill's `reference/security.md`.
+When a change adds a command or permission, say which permission/scope was added and why it is the minimum needed. For details, use the `tauri-stack` skill's `reference/security.md`.

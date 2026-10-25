@@ -19,7 +19,7 @@ Assess what exists; don't change it. The output is a findings report the user ca
 
 Detect the stack from manifests (`package.json`, `Cargo.toml`, `src-tauri/`, `next.config.*`, `pyproject.toml`, `go.mod`…) and record the framework **and major version**.
 
-If a skill for that stack is available in this session (for example `tauri:tauri-desktop`, `nextjs:nextjs-stack`, `pwa:pwa-stack`), load it and collect the absolute paths of the reference files relevant to the focus. Those references are the yardstick. If no stack skill is available, say so in the report: findings then rest on general engineering practice and the project's own conventions, and are labelled that way.
+If a skill for that stack is available in this session (for example `tauri:tauri-stack`, `nextjs:nextjs-stack`, `pwa:pwa-stack`), load it and collect the absolute paths of the reference files relevant to the focus. Those references are the yardstick. If no stack skill is available, say so in the report: findings then rest on general engineering practice and the project's own conventions, and are labelled that way.
 
 ## 3. Delegate, in parallel
 
@@ -45,7 +45,7 @@ Read both reports and write `.ai-dlc/<work-id>/codebase-review.md` using [refere
 Show: the overall verdict in one line, counts by severity, the top 3 findings, and the report path. Then offer:
 
 - **Fix one finding:** start `/dev:ai-dlc` with the finding as the request, e.g. `refactor: F3 from .ai-dlc/<work-id>/codebase-review.md — move IPC commands out of lib.rs`.
-- **Plan several:** run `sdlc-breakdown` with the chosen findings as the parent request.
+- **Plan several:** run `breakdown` with the chosen findings as the parent request.
 - **Stop:** the report stays in `.ai-dlc/<work-id>/` (local; it is gitignored like other working files).
 
 Don't fix anything in this skill, even small things — the user picks what to change.

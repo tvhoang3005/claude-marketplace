@@ -1,5 +1,5 @@
 ---
-name: tauri-desktop
+name: tauri-stack
 description: "Tauri 2 patterns for building cross-platform desktop and mobile apps with a Rust backend and web frontend: project setup, IPC commands, events and channels, capability-based security, plugins, auto-update, and packaging. TRIGGER when: the project has a src-tauri/ directory, tauri.conf.json or capabilities/*.json; code imports from '@tauri-apps/api' or '@tauri-apps/plugin-*'; Rust code uses the tauri crate or #[tauri::command]; or the user asks to build a desktop app with Tauri, add a Tauri command or plugin, configure permissions, set up the updater, or ship a Tauri build. DO NOT trigger for: Electron apps, generic Rust questions without Tauri, or plain web apps."
 ---
 

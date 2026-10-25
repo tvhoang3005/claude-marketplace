@@ -34,9 +34,3 @@ The skill triggers automatically when Claude detects Next.js code (imports from 
 | **Performance** | Image optimization, code splitting, Core Web Vitals |
 
 References are loaded on-demand — only the relevant topic is read when needed.
-
-## Rules (1)
-
-| Rule | Applies to | What It Enforces |
-|---|---|---|
-| **evidence-based** | all files (`**/*`) | Back non-obvious claims with verifiable evidence (file:line, docs links, command output); state assumptions such as App Router vs Pages Router or Next.js version; say "I don't know" rather than guess |

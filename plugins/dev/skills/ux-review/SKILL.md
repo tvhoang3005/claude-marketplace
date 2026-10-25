@@ -42,5 +42,5 @@ Run **`dev:ux-reviewer`** with: the evidence folder, the project rule paths, sta
 Show the one-line verdict, counts by severity, the top 3 suggestions with their screenshot paths, and any **tensions** needing a decision. Offer:
 
 - **Implement one:** `/dev:ai-dlc` with the suggestion as the request, e.g. `feature: U2 from .ai-dlc/<work-id>/ux-review.md — …`.
-- **Plan several:** `sdlc-breakdown` with the chosen suggestions.
+- **Plan several:** `breakdown` with the chosen suggestions.
 - **Stop:** the report and screenshots stay in `.ai-dlc/<work-id>/` (gitignored).

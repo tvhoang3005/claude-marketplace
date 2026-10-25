@@ -1,10 +1,10 @@
 ---
-name: sdlc-breakdown
+name: breakdown
 description: Splits a large ticket or feature into small, independently shippable work items, each run through its own ai-dlc pipeline. Use when the user says "break this down", "split this ticket", "this is too big", or when ai-dlc Plan rates work as size L.
 argument-hint: "<parent work-id or description>"
 ---
 
-# SDLC Breakdown
+# Breakdown
 
 Turn one large work item into child items that can each be built, reviewed and shipped on their own.
 

@@ -25,7 +25,7 @@ Follow [project-context.md](project-context.md): read the config, detect command
 | M | One feature slice across a few modules, fits in one PR a reviewer can read in one sitting |
 | L | Multiple independent slices, more than ~15 files, or more than one deployable change |
 
-**Size L:** recommend splitting before continuing. At the checkpoint, offer to run the `sdlc-breakdown` skill. If the user agrees, this work item becomes the parent, and each child item runs its own pipeline. If they decline, record "split declined" under Notes and continue.
+**Size L:** recommend splitting before continuing. At the checkpoint, offer to run the `breakdown` skill. If the user agrees, this work item becomes the parent, and each child item runs its own pipeline. If they decline, record "split declined" under Notes and continue.
 
 ## 3. Risk flags
 

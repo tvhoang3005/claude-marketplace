@@ -1,6 +1,6 @@
 schema_version: "1.1"
 name: route-split-to-breakdown
-description: Asking to split a large ticket should start sdlc-breakdown.
+description: Asking to split a large ticket should start breakdown.
 tags: [routing]
 runs: 3
 execution:
@@ -14,4 +14,4 @@ graders:
   - name: breakdown-fired
     type: tool_used
     tool: Skill
-    input_match: '"skill"\s*:\s*"(?:dev:)?sdlc-breakdown"'
+    input_match: '"skill"\s*:\s*"(?:dev:)?breakdown"'

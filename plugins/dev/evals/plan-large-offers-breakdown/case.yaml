@@ -21,6 +21,6 @@ graders:
     type: llm
     criteria: |
       PASS if the final reply recommends splitting this work into smaller items (mentioning
-      sdlc-breakdown, a breakdown, or splitting into separate tickets/PRs) and asks the user
+      the breakdown skill, or splitting into separate tickets/PRs) and asks the user
       whether to do so before continuing.
       FAIL if it continues into requirements or design for the whole epic without offering a split.
