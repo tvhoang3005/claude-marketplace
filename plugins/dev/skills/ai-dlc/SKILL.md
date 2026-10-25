@@ -28,7 +28,7 @@ You drive the work; the user approves at checkpoints. Stay lean: read each phase
 |---|---|---|---|
 | Discovery | [reference/discovery.md](reference/discovery.md) | `discovery.md` | Yes |
 | Plan | [reference/plan.md](reference/plan.md) | `state.md` | Yes |
-| Breakdown (size L only) | use the `sdlc-breakdown` skill | `breakdown.md` | Yes |
+| Breakdown (size L only) | use the `breakdown` skill | `breakdown.md` | Yes |
 | Investigate | use the `investigate` skill | `investigation.md` | Yes |
 | Review (audit only) | use the `codebase-review` skill | `codebase-review.md` | Yes — pipeline ends here |
 | Inception | [reference/inception.md](reference/inception.md) | `specs.md` | Yes |

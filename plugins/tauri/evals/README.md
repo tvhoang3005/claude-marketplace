@@ -1,12 +1,12 @@
 # tauri evals
 
-Routing tests for the `tauri-desktop` skill, run with `claude plugin eval`. Each case is one `case.yaml`; prompts are self-contained (no fixture project).
+Routing tests for the `tauri-stack` skill, run with `claude plugin eval`. Each case is one `case.yaml`; prompts are self-contained (no fixture project).
 
 | Case | Checks |
 |---|---|
-| `route-command-to-tauri-desktop` | Adding a `#[tauri::command]` starts `tauri-desktop` |
-| `route-permission-error-to-tauri-desktop` | A capability "not allowed" error starts `tauri-desktop` |
-| `no-trigger-on-electron` | An Electron question does not start `tauri-desktop` |
+| `route-command-to-tauri-stack` | Adding a `#[tauri::command]` starts `tauri-stack` |
+| `route-permission-error-to-tauri-stack` | A capability "not allowed" error starts `tauri-stack` |
+| `no-trigger-on-electron` | An Electron question does not start `tauri-stack` |
 
 ## Run
 

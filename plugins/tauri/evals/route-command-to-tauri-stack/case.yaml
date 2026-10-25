@@ -1,6 +1,6 @@
 schema_version: "1.1"
-name: route-command-to-tauri-desktop
-description: Adding a Rust command to a Tauri app should start the tauri-desktop skill.
+name: route-command-to-tauri-stack
+description: Adding a Rust command to a Tauri app should start the tauri-stack skill.
 tags: [routing, smoke]
 runs: 3
 execution:
@@ -9,7 +9,7 @@ execution:
   prompt: |
     In my Tauri 2 app I need a #[tauri::command] that saves the user's settings (theme, font size) to disk, and I want to call it from my React frontend with invoke. How should I write it?
 graders:
-  - name: tauri-desktop-fired
+  - name: tauri-stack-fired
     type: tool_used
     tool: Skill
-    input_match: '"skill"\s*:\s*"(?:tauri:)?tauri-desktop"'
+    input_match: '"skill"\s*:\s*"(?:tauri:)?tauri-stack"'

@@ -7,7 +7,7 @@ Behaviour tests for the plugin, run with `claude plugin eval`. Each case is one 
 | `route-feature-to-ai-dlc` | A feature request starts `ai-dlc` |
 | `route-debug-to-investigate` | "Why is this failing" starts `investigate` |
 | `route-ship-to-ship-n-check` | "Ship it" starts `ship-n-check` |
-| `route-split-to-breakdown` | "Break this down" starts `sdlc-breakdown` |
+| `route-split-to-breakdown` | "Break this down" starts `breakdown` |
 | `no-trigger-on-general-question` | A general question starts no toolkit skill (all 8) |
 | `vague-request-starts-discovery` | Vague request → Discovery questions, no specs |
 | `plan-bug-known-pipeline` | Known-cause bug → `bug-fix-known`, no Investigate, checklist format, stops at checkpoint |

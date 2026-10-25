@@ -12,4 +12,4 @@ When `ship-n-check` returns, record the PR URL and CI status under **Notes** in 
 
 With `Release: commit-only`, record the branch and commit SHA instead of a PR URL, and tell the user the work is committed locally and how to merge it (`git checkout <base> && git merge <branch>`).
 
-If this item is a child from `sdlc-breakdown`, also tell the user which sibling is next according to the parent's `breakdown.md`.
+If this item is a child from `breakdown`, also tell the user which sibling is next according to the parent's `breakdown.md`.

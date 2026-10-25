@@ -1,6 +1,6 @@
 schema_version: "1.1"
 name: no-trigger-on-electron
-description: An Electron question must not start the tauri-desktop skill.
+description: An Electron question must not start the tauri-stack skill.
 tags: [routing, negative]
 runs: 3
 execution:
@@ -12,7 +12,7 @@ graders:
   - name: no-skill-fired
     type: tool_used
     tool: Skill
-    input_match: '"skill"\s*:\s*"(?:tauri:)?tauri-desktop"'
+    input_match: '"skill"\s*:\s*"(?:tauri:)?tauri-stack"'
     min: 0
     max: 0
     arm: both

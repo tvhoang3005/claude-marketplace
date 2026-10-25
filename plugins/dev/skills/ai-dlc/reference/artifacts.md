@@ -10,7 +10,7 @@ Every work item has a folder `.ai-dlc/<work-id>/`. Phases and agents communicate
 | `design.md` | Design | Durable | **Yes** — keeps the ADRs next to the code they shaped |
 | `discovery.md` | Discovery | Transient | No |
 | `state.md` | Plan, every checkpoint | Transient | No |
-| `breakdown.md` | `sdlc-breakdown` | Transient | No |
+| `breakdown.md` | `breakdown` | Transient | No |
 | `investigation.md` | Investigate / `debugger` | Transient | No |
 | `code-review.md` | `code-reviewer` | Transient | No |
 | `security-review.md` | `security-reviewer` | Transient | No |

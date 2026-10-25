@@ -60,4 +60,4 @@ For each dimension: look for evidence, compare against the stack yardstick (if g
 |---|---|
 | **S** | Under an hour, one or two files |
 | **M** | A focused PR |
-| **L** | Several PRs or a migration — candidate for `sdlc-breakdown` |
+| **L** | Several PRs or a migration — candidate for `breakdown` |
