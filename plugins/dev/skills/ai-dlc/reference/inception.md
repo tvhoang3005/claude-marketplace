@@ -11,6 +11,8 @@ Turn the request into testable requirements. Inputs: `state.md`, plus `discovery
 
 **Light mode** (bug fixes): one acceptance criterion for the fix, one regression criterion, no NFR section.
 
+Only include a section that has content. Don't write `NFR: none` or an empty "Out of scope". `specs.md` is committed and teammates read it, so follow the `team-writing` rule.
+
 **Size S** (no Design phase follows): add a `## Files to touch` list — path and the change in one line each. Construct works from it.
 
 ## Output: `specs.md`

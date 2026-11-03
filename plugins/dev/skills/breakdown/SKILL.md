@@ -46,5 +46,5 @@ Acceptance criteria:
 Then:
 
 1. In the parent's `state.md`, add the child ids under **Notes** and mark the remaining parent phases `- [x] <phase> — split into children`.
-2. Show the user the table and ask whether to create the children as tickets (GitHub issues via `gh issue create`, or Jira through its connector if available) or keep them local.
+2. Show the user the table and ask whether to create the children as tickets (GitHub issues via `gh issue create`, or Jira through its connector if available) or keep them local. Each ticket body is the one-sentence goal, its acceptance criteria, its dependencies and a link to the parent. Follow the `team-writing` rule, and don't copy in the parent's background.
 3. Offer to start the first child: `/dev:ai-dlc <parent-id>-1`.

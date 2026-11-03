@@ -2,7 +2,7 @@
 
 An opinionated toolkit for Claude Code that introduces the **AI-DLC** (AI-driven development lifecycle) workflow: an adaptive pipeline from requirements to pull request, where the AI drives and you approve at checkpoints.
 
-> **v0.7.** AI-DLC orchestrator, shipping pipeline, investigation, ticket breakdown, codebase and UX reviews, five review agents, git-safety and resume hooks, and an eval suite. See [Roadmap](#roadmap) for what's planned.
+> **v0.8.** AI-DLC orchestrator, shipping pipeline, investigation, ticket breakdown, codebase and UX reviews, five review agents, git-safety and resume hooks, and an eval suite. See [Roadmap](#roadmap) for what's planned.
 
 ## Install
 
@@ -169,11 +169,12 @@ On the first run in a repo, Plan offers to add this to `.gitignore`. It commits 
 | `ux-reviewer` | Reviews screenshots and accessibility data against the project's design rules and UX heuristics |
 | `architecture-reviewer` | Read-only structure review of existing code against framework conventions |
 
-### Rules (2)
+### Rules (3)
 
 | Rule | Applies to | What it enforces |
 |---|---|---|
 | `evidence-based` | all files | Back non-obvious claims with checkable evidence (`path:line`, docs, command output); state assumptions; say "I don't know" rather than guess |
+| `team-writing` | all files | PRs, commits, tickets, comments and committed docs read as the user wrote them: point first, no ceremony, empty sections dropped, length budgets per output |
 | `testing` | `*.test.*`, `*.spec.*` | One behaviour per test, Arrange/Act/Assert, no network or clock in unit tests |
 
 ### Hooks (2)

@@ -57,3 +57,4 @@ Skip checkpoints for this work item if the user says "dev mode" or "no checkpoin
 - Use the commands recorded in the Project section of `state.md`; don't rediscover them.
 - Keep command output small: run the narrowest test that proves the point, use quiet/summary reporters, and read only the summary and failures (e.g. pipe through `tail -n 40`). Never paste a full log into context or an artifact.
 - When something in the request is ambiguous and the answer changes what you build, ask — don't guess.
+- `specs.md`, `design.md`, PRs, commits and anything posted to the tracker follow the `team-writing` rule. Teammates read them as the user's own words, so keep them short and drop empty sections.

@@ -11,6 +11,8 @@ Decide how to build it before writing code. Inputs: `state.md`, `specs.md`, and 
 5. **Test plan:** which test covers each AC, at which level (unit, integration, e2e).
 6. **Waves:** split construction into ordered waves of a few files each, so each wave ends in a green test run.
 
+Keep each ADR to about 3 lines and leave out sections that don't apply. `design.md` is committed, so follow the `team-writing` rule.
+
 ## Output: `design.md`
 
 ```markdown
