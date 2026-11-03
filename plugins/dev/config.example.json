@@ -1,11 +1,13 @@
 {
-  "$comment": "Copy to <your-repo>/.claude/ai-dlc.json. Every field is optional; anything omitted is auto-detected by the ai-dlc Plan phase. ticketSource: github | jira | paste | auto | none. release: pr | commit-only.",
+  "$comment": "Copy to <your-repo>/.claude/ai-dlc.json. Every field is optional; anything omitted is auto-detected by the ai-dlc Plan phase. ticketSource: github | jira | paste | auto | none. release: pr | commit-only. isolation: branch | worktree | none.",
   "baseBranch": "main",
   "ticketPattern": "[A-Z][A-Z0-9]+-\\d+",
   "ticketSource": "auto",
   "checkpoints": "on",
   "release": "pr",
+  "isolation": "branch",
   "commands": {
+    "install": "npm ci",
     "format": "npm run format:check",
     "lint": "npm run lint",
     "typecheck": "npm run typecheck",

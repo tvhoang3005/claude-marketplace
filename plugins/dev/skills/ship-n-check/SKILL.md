@@ -17,7 +17,7 @@ If `.ai-dlc/<work-id>/state.md` exists, read its **Project** section for the bas
 ## 1. Branch & commit
 
 1. Run `git status` and `git diff --stat`. If there is nothing to ship, say so and stop.
-2. If on the base branch, create a branch: `<type>/<ticket-id>-<short-slug>`, or `<type>/<work-id>` when there is no ticket (e.g. `feat/settings-dark-mode`). `<type>` is `feat`, `fix`, `refactor`, `chore` or `docs`. Never invent a ticket id.
+2. If `state.md` records a `Branch`, you must be on it. If you're on a different branch, stop and say so. Otherwise, if on the base branch, create a branch: `<type>/<ticket-id>-<short-slug>`, or `<type>/<work-id>` when there is no ticket (e.g. `feat/settings-dark-mode`). `<type>` is `feat`, `fix`, `refactor`, `chore` or `docs`. Never invent a ticket id.
 3. Stage files by explicit path. Never `git add -A` or `git add .` — check for secrets, build output and unrelated changes first.
 4. From `.ai-dlc/`, stage only `specs.md` and `design.md` of the work item being shipped. Never stage other artifact files.
 5. Commit as `<type>: [<ticket-id>] <summary>` (omit the ticket part if there is none). Subject ≤ 72 chars. Add a body only when the reason isn't obvious from the subject.

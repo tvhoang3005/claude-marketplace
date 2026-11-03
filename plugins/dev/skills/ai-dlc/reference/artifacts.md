@@ -24,7 +24,7 @@ Handoffs not tied to a work item go in `.ai-dlc/handoffs/<yyyy-mm-dd>-<slug>.md`
 
 ## Gitignore setup
 
-Plan adds the gitignore block from [project-context.md](project-context.md#5-gitignore-first-run-in-a-repo) on the first run in a repo: `specs.md` and `design.md` are committed, everything else under `.ai-dlc/` is ignored.
+Plan adds the gitignore block from [project-context.md](project-context.md#6-gitignore-first-run-in-a-repo) on the first run in a repo: `specs.md` and `design.md` are committed, everything else under `.ai-dlc/` is ignored.
 
 `ship-n-check` stages `specs.md` and `design.md` for the work item it is shipping, and nothing else under `.ai-dlc/`.
 

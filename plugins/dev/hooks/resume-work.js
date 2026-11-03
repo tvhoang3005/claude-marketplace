@@ -2,9 +2,11 @@
 // SessionStart hook: lists AI-DLC work items with unfinished phases, and open handoffs, so the user can resume them.
 // Reads the "## Pipeline" checklist in .ai-dlc/*/state.md (written by Plan) and the "Status: open" line in
 // .ai-dlc/*/handoff.md and .ai-dlc/handoffs/*.md (written by the handoff skill).
+// Also lists unfinished work items in the repo's other git worktrees (isolation: worktree), so they aren't forgotten.
 
 const fs = require("fs");
 const path = require("path");
+const { execFileSync } = require("child_process");
 
 const MAX_ITEMS = 5;
 
@@ -63,24 +65,70 @@ function capped(lines) {
   return shown.join("\n");
 }
 
+function listWorkIds(dir) {
+  try {
+    return fs.readdirSync(dir, { withFileTypes: true }).filter((d) => d.isDirectory()).map((d) => d.name);
+  } catch {
+    return []; // No artifacts folder.
+  }
+}
+
+function unfinishedItems(dir) {
+  return listWorkIds(dir)
+    .map((id) => unfinishedItem(dir, id))
+    .filter(Boolean)
+    .sort((a, b) => b.mtime - a.mtime);
+}
+
+function realpath(p) {
+  try {
+    return fs.realpathSync(p);
+  } catch {
+    return path.resolve(p);
+  }
+}
+
+// Paths of the repo's other worktrees, or [] when this isn't a git repo or git isn't available.
+function otherWorktrees(dir) {
+  let out;
+  try {
+    out = execFileSync("git", ["-C", dir, "worktree", "list", "--porcelain"], {
+      encoding: "utf8",
+      timeout: 3000,
+      stdio: ["ignore", "pipe", "ignore"],
+    });
+  } catch {
+    return [];
+  }
+  let top;
+  try {
+    top = execFileSync("git", ["-C", dir, "rev-parse", "--show-toplevel"], {
+      encoding: "utf8",
+      timeout: 3000,
+      stdio: ["ignore", "pipe", "ignore"],
+    }).trim();
+  } catch {
+    top = dir;
+  }
+  const self = realpath(top);
+  return out
+    .split("\n")
+    .filter((line) => line.startsWith("worktree "))
+    .map((line) => line.slice("worktree ".length))
+    .filter((p) => realpath(p) !== self);
+}
+
 const cwd = readInput().cwd || process.cwd();
 const artifactsDir = path.join(cwd, ".ai-dlc");
 
-let workIds = [];
-try {
-  workIds = fs.readdirSync(artifactsDir, { withFileTypes: true }).filter((d) => d.isDirectory()).map((d) => d.name);
-} catch {
-  process.exit(0); // No artifacts folder: nothing to resume.
-}
-
-const items = workIds
-  .map((id) => unfinishedItem(artifactsDir, id))
-  .filter(Boolean)
+const workIds = listWorkIds(artifactsDir);
+const items = unfinishedItems(artifactsDir);
+const handoffs = listOpenHandoffs(artifactsDir, workIds);
+const elsewhere = otherWorktrees(cwd)
+  .flatMap((wt) => unfinishedItems(path.join(wt, ".ai-dlc")).map((i) => ({ ...i, worktree: wt })))
   .sort((a, b) => b.mtime - a.mtime);
 
-const handoffs = listOpenHandoffs(artifactsDir, workIds);
-
-if (items.length === 0 && handoffs.length === 0) process.exit(0);
+if (items.length === 0 && handoffs.length === 0 && elsewhere.length === 0) process.exit(0);
 
 const parts = [];
 if (items.length > 0) {
@@ -88,6 +136,13 @@ if (items.length > 0) {
     "dev: unfinished AI-DLC work items in this repo (most recent first):\n" +
       capped(items.map((i) => `- ${i.workId}: next phase "${i.next}"`)) +
       "\nIf the user's request relates to one of these, offer to resume it with /dev:ai-dlc <work-id>. Otherwise don't mention them."
+  );
+}
+if (elsewhere.length > 0) {
+  parts.push(
+    "dev: unfinished AI-DLC work items in other worktrees of this repo (most recent first):\n" +
+      capped(elsewhere.map((i) => `- ${i.workId}: next phase "${i.next}" in ${i.worktree}`)) +
+      "\nIf the user asks to resume one of these, tell them to open Claude in that folder and run /dev:ai-dlc <work-id> there. Otherwise don't mention them."
   );
 }
 if (handoffs.length > 0) {

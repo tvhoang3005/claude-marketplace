@@ -18,6 +18,7 @@ Behaviour tests for the plugin, run with `claude plugin eval`. Each case is one 
 | `route-wrapup-to-handoff` | "Stopping for today, save context" starts `handoff` |
 | `handoff-writes-file` | Handoff file written with `Status: open`, dead ends and a concrete next step |
 | `size-s-feature-skips-design` | Size-S feature → no Plan stop, no design phase, `## Files to touch` in specs, stops before code |
+| `plan-creates-branch` | Size-S bug → Plan switches to `fix/<id>…` and records `Branch` and `Isolation: branch` in `state.md` |
 | `plan-no-ticket-utf8` | No ticket + `UTF-8` in the request → slug work id, `state.md` written, no ticket prompt |
 
 ## Run

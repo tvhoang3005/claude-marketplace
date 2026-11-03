@@ -2,7 +2,7 @@
 
 An opinionated toolkit for Claude Code that introduces the **AI-DLC** (AI-driven development lifecycle) workflow: an adaptive pipeline from requirements to pull request, where the AI drives and you approve at checkpoints.
 
-> **v0.8.** AI-DLC orchestrator, shipping pipeline, investigation, ticket breakdown, codebase and UX reviews, five review agents, git-safety and resume hooks, and an eval suite. See [Roadmap](#roadmap) for what's planned.
+> **v0.9.** AI-DLC orchestrator, shipping pipeline, investigation, ticket breakdown, codebase and UX reviews, five review agents, git-safety and resume hooks, and an eval suite. See [Roadmap](#roadmap) for what's planned.
 
 ## Install
 
@@ -128,6 +128,16 @@ Plan fetches the ticket text when the request contains a ticket id:
 
 `ticketSource: none` skips ticket lookup entirely. `release: commit-only` makes Release stop after a tested local commit on a `<type>/<work-id>` branch — no push, PR or CI. Without a config, a repo with no `git remote` gets `commit-only` automatically.
 
+#### Several tickets at once
+
+Plan puts each work item that changes code on its own branch (`isolation: branch`, the default). It stops if your checkout has uncommitted changes from other work, so two tickets never end up in one commit. To work on several tickets in parallel, opt in to worktrees:
+
+```json
+{ "isolation": "worktree" }
+```
+
+Plan then creates `../<repo>-<work-id>` with `git worktree add`, moves the item's `.ai-dlc/` folder there, and runs the install command. It asks before copying `.env`-style files. Then it tells you to open Claude in that folder. The session-start hook lists unfinished items from every worktree of the repo. After the PR merges, Release tells you the `git worktree remove` command to run. `isolation: none` keeps the old behaviour, where the branch is created at Release.
+
 ### Project config (optional)
 
 Plan auto-detects the base branch and format, lint, type-check and test commands, and records them in `state.md`. To override detection, copy [`config.example.json`](config.example.json) to `.claude/ai-dlc.json` in your repo. Every field is optional.
@@ -182,7 +192,7 @@ On the first run in a repo, Plan offers to add this to `.gitignore`. It commits 
 | Hook | Trigger | What it does |
 |---|---|---|
 | `git-safety` | PreToolUse (Bash) | Blocks `--no-verify`, force-push to main/master, `reset --hard`, `clean -f`, `checkout .`, `branch -D main` |
-| `resume-work` | SessionStart | Lists unfinished work items from `.ai-dlc/*/state.md` and open handoffs (`Status: open`) |
+| `resume-work` | SessionStart | Lists unfinished work items from `.ai-dlc/*/state.md` (including the repo's other git worktrees) and open handoffs (`Status: open`) |
 
 ### Evals
 

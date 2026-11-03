@@ -13,7 +13,8 @@ If `.claude/ai-dlc.json` (or the older `.claude/engineering-toolkit.json`) exist
 | `ticketSource` | `github`, `jira`, `paste`, `auto`, or `none` (no tracker: never fetch, the request is the ticket) | `auto` |
 | `checkpoints` | `on` or `off` (dev mode by default) | `on` |
 | `release` | `pr` (push + draft PR) or `commit-only` (commit locally, no push/PR) | `pr`; `commit-only` if the repo has no remote |
-| `commands.format/lint/typecheck/test` | Exact commands | detected |
+| `isolation` | `branch` (own branch from Plan), `worktree` (own branch in its own `git worktree`, so several tickets can run in parallel) or `none` (current checkout; branch created at Release) | `branch` |
+| `commands.install/format/lint/typecheck/test` | Exact commands (`install` sets up a fresh worktree) | detected |
 | `securityPaths` | Globs that always trigger security review | none |
 
 ## 2. Detect commands
@@ -22,9 +23,9 @@ For any command the config doesn't set, look in this order and take the first ma
 
 | Source | Where to look |
 |---|---|
-| `package.json` | `scripts`: `format:check`/`format`, `lint`, `typecheck`/`type-check`/`tsc`, `test`; use the lockfile to pick `npm`, `pnpm`, `yarn` or `bun` |
+| `package.json` | `scripts`: `format:check`/`format`, `lint`, `typecheck`/`type-check`/`tsc`, `test`; use the lockfile to pick `npm`, `pnpm`, `yarn` or `bun`, and its frozen install (`npm ci`, `pnpm install --frozen-lockfile`, `yarn install --immutable`, `bun install --frozen-lockfile`) as `install` |
 | `Makefile` / `justfile` | targets named `fmt`, `format`, `lint`, `typecheck`, `test` |
-| `pyproject.toml` | `ruff format --check`, `ruff check`, `mypy`, `pytest` if those tools are configured |
+| `pyproject.toml` | `ruff format --check`, `ruff check`, `mypy`, `pytest` if those tools are configured; `uv sync` or `poetry install` as `install` when that tool's lockfile exists |
 | `go.mod` | `gofmt -l .`, `go vet ./...`, `go test ./...` |
 | README / CONTRIBUTING | documented commands |
 
@@ -50,7 +51,11 @@ Save the fetched title and a link in `state.md`; Inception reads the full text f
 
 Use `release` from the config if set. Otherwise run `git remote`: no remote → `commit-only`, else `pr`. Record it so `ship-n-check` knows whether to push.
 
-## 5. Gitignore (first run in a repo)
+## 5. Isolation
+
+Use `isolation` from the config if set, else `branch`. Plan applies it at the end of the phase ([plan.md](plan.md#5-isolate-the-work-item)).
+
+## 6. Gitignore (first run in a repo)
 
 Check that `.gitignore` contains this block. If it is missing, show it to the user and add it once they agree:
 
@@ -69,7 +74,11 @@ Check that `.gitignore` contains this block. If it is missing, show it to the us
 - Base branch: main
 - Ticket: TICKET-123 — <title> (<url>), source: jira   |   none
 - Release: pr   |   commit-only (no remote)
+- Isolation: branch   |   worktree   |   none
+- Branch: fix/TICKET-123-date-offset
+- Worktree: /abs/path/to/repo-TICKET-123   (worktree only)
 - Commands:
+  - install: npm ci
   - format: npm run format:check
   - lint: npm run lint
   - typecheck: npm run typecheck

@@ -12,4 +12,6 @@ When `ship-n-check` returns, record the PR URL and CI status under **Notes** in 
 
 With `Release: commit-only`, record the branch and commit SHA instead of a PR URL, and tell the user the work is committed locally and how to merge it (`git checkout <base> && git merge <branch>`).
 
+If the Project section records a `Worktree`, tell the user how to remove it once the PR is merged (or, for `commit-only`, once the branch is merged): from the main checkout, run `git worktree remove <path>`. This also deletes the worktree's `.ai-dlc/` working files. Don't run it yourself, and never pass `--force`.
+
 If this item is a child from `breakdown`, also tell the user which sibling is next according to the parent's `breakdown.md`.

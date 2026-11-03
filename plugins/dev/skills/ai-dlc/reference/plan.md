@@ -51,6 +51,32 @@ Set `security-sensitive: yes` if any of these apply; Verify then adds a security
 - **New data model** (`feature`): Design includes the domain model section.
 - **`audit`:** size and risk flags don't apply: write `Size: n/a (audit)` and skip the breakdown offer. The `review` phase hands off to the `codebase-review` skill with this work id; each finding the user wants fixed becomes its own work item.
 
+## 5. Isolate the work item
+
+Give each work item that will change code its own branch, so two tickets never share a working tree. This runs only when the pipeline includes `construct`, so spikes, audits and parents being split don't get one. It runs after the Plan checkpoint is approved. For size S, where that checkpoint is skipped, it runs right after `state.md` is written.
+
+**Branch name:** `<type>/<ticket-id>-<short-slug>`, or `<type>/<work-id>` when there is no ticket. `<type>` comes from the intent: `fix` for bugs, `feat` for features and `refactor` for refactors. **Start point:** if there is a remote, run `git fetch origin <base>` and branch from `origin/<base>`. Otherwise branch from `<base>`.
+
+Use `isolation` from the Project section ([project-context.md](project-context.md)):
+
+**`branch` (default)**
+
+1. If the current branch is already this item's branch (a resume), use it.
+2. Run `git status --porcelain`. Leave out `.ai-dlc/` and any `.gitignore` change Plan just made. If other changes remain, they belong to other work, so stop and ask the user to commit or stash them, or to use a worktree for this item. Never stash, reset or discard changes yourself.
+3. Run `git switch -c <branch> <start>`. If the branch already exists, run `git switch <branch>` instead.
+
+**`worktree` (opt-in)**
+
+1. Run `git worktree add -b <branch> ../<repo-folder>-<work-id> <start>`. If the branch already exists, leave out `-b`. Uncommitted changes in the current checkout stay where they are.
+2. Move `.ai-dlc/<work-id>/` into the worktree, because it is gitignored and isn't copied. If Plan added the `.gitignore` block in this run and it isn't committed, copy `.gitignore` too.
+3. In the worktree, run the `install` command from the Project section, if there is one.
+4. List gitignored local files that the app needs but the worktree won't have, such as `.env*` and `*.local` at the root or in config folders. Ask before copying them, because they may hold secrets.
+5. Stop. The rest of the pipeline runs in the worktree. Tell the user to start a new session there: `cd <worktree-path> && claude`, then run `/dev:ai-dlc <work-id>`. Warn them that dev servers or test databases in two worktrees can clash on ports.
+
+**`none`:** work in the current checkout, and `ship-n-check` creates the branch at Release. Use this only when you work on one item at a time.
+
+Record the result in the Project section: `Isolation`, `Branch`, and `Worktree` with an absolute path when one was created.
+
 ## Output: `state.md`
 
 ```markdown
