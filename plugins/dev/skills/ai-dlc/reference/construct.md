@@ -14,6 +14,7 @@ Use the commands in the **Project** section of `state.md`. If a command is recor
 ## Rules
 
 - Follow existing code patterns in the module you are changing.
+- Comment rarely, and only to explain why. Never put ticket, AC or ADR ids or change history in code or test names. See the `team-writing` rule, **Code comments**.
 - Don't change code outside the components listed in `design.md` without noting why in `state.md`.
 - If a test can't be made to pass within the design, stop and tell the user; don't weaken the test.
 

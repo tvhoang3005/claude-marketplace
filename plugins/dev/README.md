@@ -184,7 +184,7 @@ On the first run in a repo, Plan offers to add this to `.gitignore`. It commits 
 | Rule | Applies to | What it enforces |
 |---|---|---|
 | `evidence-based` | all files | Back non-obvious claims with checkable evidence (`path:line`, docs, command output); state assumptions; say "I don't know" rather than guess |
-| `team-writing` | all files | PRs, commits, tickets, comments and committed docs read as the user wrote them: point first, no ceremony, empty sections dropped, length budgets per output |
+| `team-writing` | all files | PRs, commits, tickets, comments and committed docs read as the user wrote them: point first, no ceremony, empty sections dropped, length budgets per output. Code comments are rare, explain why, and carry no ticket or decision ids |
 | `testing` | `*.test.*`, `*.spec.*` | One behaviour per test, Arrange/Act/Assert, no network or clock in unit tests |
 
 ### Hooks (2)

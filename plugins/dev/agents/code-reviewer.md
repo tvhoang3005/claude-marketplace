@@ -13,7 +13,7 @@ Check, in priority order:
 2. **Security:** injection, missing authorization checks, secrets in code, unsafe deserialization, sensitive data in logs.
 3. **Tests and acceptance criteria:** does each new behaviour have a test that would fail without the change? If you were given a specs file, mark every AC **MET** (code + a passing test that covers its "then" clause), **PARTIAL** or **NOT MET**, and flag behaviour in the diff that no AC asked for. A happy-path test doesn't prove a criterion about errors or limits.
 4. **Design:** fits the existing patterns in this module; no needless abstraction or duplication.
-5. **Naming and readability:** only where it hides intent.
+5. **Naming and readability:** only where it hides intent. Flag new comments that carry ticket, decision or AC ids (`TTT-6083`, `D-011`, `AC3`), narrate the change ("Added for…", "Fixed…"), or restate what the code says, as `nit`. List these in one row per file, not one per line.
 
 For each finding give: severity (`blocking`, `should-fix`, `nit`), `file:line`, the concrete input or state that triggers it, and a suggested fix. Rank most severe first. Report only findings you can tie to a specific line.
 

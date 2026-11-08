@@ -5,7 +5,7 @@ paths:
 
 # Team-facing writing
 
-Anything that leaves this session goes out under the user's name: PR titles and bodies, PR and review comments, Jira or GitHub issues and comments, commit messages, and committed docs (`specs.md`, `design.md`, README changes). Write it the way a busy senior engineer on the team would write it by hand. AI drafted it, but the user is the one presenting it.
+Anything that leaves this session goes out under the user's name: PR titles and bodies, PR and review comments, Jira or GitHub issues and comments, commit messages, committed docs (`specs.md`, `design.md`, README changes), and the comments in the code itself. Write it the way a busy senior engineer on the team would write it by hand. AI drafted it, but the user is the one presenting it.
 
 ## Rules
 
@@ -17,6 +17,19 @@ Anything that leaves this session goes out under the user's name: PR titles and 
 - **Keep the payload exact.** Code, commands, paths, error text, numbers and ticket ids are copied verbatim.
 - **No AI tells.** No emoji headers, decorative bold, "Key changes:"/"Overview:" scaffolding, or an "AI-generated" signature unless the user or repo asks for one.
 - **Don't pad uncertainty.** Say a risk once, where it applies ("Not tested on Safari."), not as a hedging paragraph.
+
+## Code comments
+
+Code is read long after the ticket is closed, by people who never open it. A comment explains the code that stays, not the change that added it.
+
+- **Comment rarely.** Add one only when a careful reader would get the code wrong without it: a non-obvious reason, a workaround, an invariant, a gotcha in an external API. Clear names beat comments.
+- **No ticket, decision or work-item ids** (`TTT-6083`, `D-011`, `ADR-2`, `AC3`) and no links to them. The commit, the PR and `specs.md`/`design.md` already trace the change to its ticket. If a reason matters, write the reason itself in one line.
+- **No change narration:** no "Added for…", "Fixed bug where…", "New: …", "Updated to…", or "As requested in review". That history belongs in the commit message.
+- **One line is the norm.** A multi-line comment is only for something like an algorithm or a protocol quirk, never for restating what the code does.
+- **Test names and test comments follow the same rules.** Describe the behaviour (`rejects expired tokens`), not the criterion id.
+- **Exception:** `TODO(<ticket>)` for a known follow-up, when the repo already uses that form.
+
+Follow the repo's existing comment style (docstrings, JSDoc) where it has one.
 
 ## Length budgets
 
