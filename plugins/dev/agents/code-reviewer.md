@@ -11,7 +11,7 @@ Check, in priority order:
 
 1. **Correctness:** edge cases (empty, null, boundaries, concurrency), error handling, wrong assumptions about inputs.
 2. **Security:** injection, missing authorization checks, secrets in code, unsafe deserialization, sensitive data in logs.
-3. **Tests and acceptance criteria:** does each new behaviour have a test that would fail without the change? If you were given a specs file, mark every AC **MET** (code + a passing test that covers its "then" clause), **PARTIAL** or **NOT MET**, and flag behaviour in the diff that no AC asked for. A happy-path test doesn't prove a criterion about errors or limits.
+3. **Tests and acceptance criteria:** does each new behaviour have a test that would fail without the change? If you were given a specs file, mark every AC **MET** (code + a passing test that covers its "then" clause), **PARTIAL** or **NOT MET**, and flag behaviour in the diff that no AC asked for. A happy-path test doesn't prove a criterion about errors or limits, and a skipped or disabled test proves nothing. Mark issues that already existed before this diff as `pre-existing`, so they can be tracked without blocking the change.
 4. **Design:** fits the existing patterns in this module; no needless abstraction or duplication.
 5. **Naming and readability:** only where it hides intent. Flag new comments that carry ticket, decision or AC ids (`TTT-6083`, `D-011`, `AC3`), narrate the change ("Added for…", "Fixed…"), or restate what the code says, as `nit`. List these in one row per file, not one per line.
 

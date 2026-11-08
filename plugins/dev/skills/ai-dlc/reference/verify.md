@@ -43,7 +43,19 @@ PASS | FAIL (n blocking)
 
 De-duplicate findings that two reviewers report on the same line; keep the higher severity.
 
+## Triage each finding
+
+Reviewers can be wrong. Check each finding against the code before acting on it.
+
+| Finding | Do |
+|---|---|
+| Wrong (the code already handles it, or the trigger can't happen) | Mark it `rejected` in `review.md` with a one-line reason. Don't drop it silently |
+| Pre-existing, not caused by this change | Add it to `## Follow-ups` in `state.md`. It doesn't block this item |
+| `blocking`, or an unmet AC | Fix it now |
+| `should-fix` | Fix it now if it's small and inside this change; otherwise ask the user whether to fix it or add it to Follow-ups |
+| `nit` | Fix it only if trivial; otherwise leave it |
+
 ## Then
 
-- **Any blocking finding or unmet AC:** fix it (back to Construct for that item), re-run the tests, and re-verify only what changed with the reviewer that raised it.
+- **Anything to fix:** fix it (back to Construct for that item), re-run the tests, and re-verify only what changed with the reviewer that raised it. After 2 fix rounds with blocking findings still open, stop and ask the user. Don't keep looping.
 - **PASS:** checkpoint with the user, then continue to Release.

@@ -2,7 +2,7 @@
 
 An opinionated toolkit for Claude Code that introduces the **AI-DLC** (AI-driven development lifecycle) workflow: an adaptive pipeline from requirements to pull request, where the AI drives and you approve at checkpoints.
 
-> **v0.9.** AI-DLC orchestrator, shipping pipeline, investigation, ticket breakdown, codebase and UX reviews, five review agents, git-safety and resume hooks, and an eval suite. See [Roadmap](#roadmap) for what's planned.
+> **v0.10.** AI-DLC orchestrator, shipping pipeline, investigation, ticket breakdown, codebase and UX reviews, five review agents, git-safety and resume hooks, and an eval suite. See [Roadmap](#roadmap) for what's planned.
 
 ## Install
 

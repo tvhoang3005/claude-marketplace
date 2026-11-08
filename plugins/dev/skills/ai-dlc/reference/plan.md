@@ -102,6 +102,9 @@ Record the result in the Project section: `Isolation`, `Branch`, and `Worktree` 
 
 ## Notes
 Decisions and user feedback from checkpoints, newest last.
+
+## Follow-ups
+Out-of-scope work found along the way (unrelated refactors, pre-existing bugs), one line each. Release reports them.
 ```
 
 **Always write `state.md`, even with gaps.** If you can't confirm something (the code the ticket names isn't found, no test command exists, no `.gitignore`), still classify from what you have, write the file, and mark each gap inline, e.g. `Size: S (unverified: src/lib/date.ts not found)`. Raise the gaps at the checkpoint instead of stopping before the file exists. The checkpoint is where the user resolves them.

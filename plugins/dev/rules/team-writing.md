@@ -29,7 +29,7 @@ Code is read long after the ticket is closed, by people who never open it. A com
 - **Test names and test comments follow the same rules.** Describe the behaviour (`rejects expired tokens`), not the criterion id.
 - **Exception:** `TODO(<ticket>)` for a known follow-up, when the repo already uses that form.
 
-Follow the repo's existing comment style (docstrings, JSDoc) where it has one.
+Follow the repo's comment format (docstrings, JSDoc), but not existing ticket-id comments. Old code full of `// TTT-1234` is not a convention to copy. When you edit lines that carry such a comment, rewrite it as a one-line reason or delete it. Leave untouched lines alone: a repo-wide sweep is a separate cleanup change.
 
 ## Length budgets
 
