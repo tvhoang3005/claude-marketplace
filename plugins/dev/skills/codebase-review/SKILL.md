@@ -13,7 +13,7 @@ Assess what exists; don't change it. The output is a findings report the user ca
 - **Work id:** from ai-dlc if it handed off, otherwise `codebase-review-<yyyy-mm-dd>` (add the area for a partial review, e.g. `codebase-review-src-tauri-2026-10-23`). Artifact folder: `.ai-dlc/<work-id>/`.
 - **Area:** the path the user named, else the whole repo. In a monorepo with several apps or packages, ask which one unless the user said "all".
 - **Focus:** default is all dimensions in [reference/review-dimensions.md](reference/review-dimensions.md). If the user named a focus (security, structure, tests…), review only that.
-- **Project context:** reuse the **Project** section of `state.md` if it exists; otherwise follow ai-dlc's [project-context.md](../ai-dlc/reference/project-context.md) steps 1–2 to detect commands. Run the test command once and record the result — a failing or missing test suite is itself a finding.
+- **Project context:** reuse the **Project** section of `state.md` if it exists; otherwise follow ai-dlc's [project-context.md](../ai-dlc/reference/project-context.md) steps 1–2 to detect commands. Run the test command once and record only the summary (`2>&1 | tail -n 15`). A failing or missing test suite is itself a finding.
 
 ## 2. Pick the yardstick
 

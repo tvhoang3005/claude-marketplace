@@ -1,6 +1,6 @@
 # UX heuristics
 
-The `ux-reviewer` agent checks these after the project's own design rules. Each item says what to look for in a screenshot or in `capture.json`.
+The `ux-reviewer` agent checks these after the project's own design rules. Each item says what to look for in a screenshot or in `summary.json`.
 
 ## 1. Task flow
 
@@ -35,7 +35,7 @@ The `ux-reviewer` agent checks these after the project's own design rules. Each 
 ## 4. Accessibility (WCAG 2.2 AA essentials)
 
 - **Contrast** (axe `color-contrast`): text ≥ 4.5:1, large text and UI components ≥ 3:1. Check text over images/glass by eye — axe can't measure backgrounds that are images.
-- **Target size** (`smallTargets` in `capture.json`): WCAG 2.2 AA requires ≥ 24×24 px (or enough spacing); aim for 44×44 on touch.
+- **Target size** (`smallTargets` in `summary.json`): WCAG 2.2 AA requires ≥ 24×24 px (or enough spacing); aim for 44×44 on touch.
 - **Names and roles** (axe `button-name`, `link-name`, `label`, `aria-*`): icon-only buttons have accessible names.
 - **Focus visible** and logical order; nothing reachable only by hover or gesture.
 - **Motion:** honours reduced motion (capture with `--reducedMotion reduce` if motion is heavy).

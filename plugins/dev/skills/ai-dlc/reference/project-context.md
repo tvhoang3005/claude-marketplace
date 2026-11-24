@@ -19,7 +19,7 @@ If `.claude/ai-dlc.json` (or the older `.claude/engineering-toolkit.json`) exist
 
 ## 2. Detect commands
 
-For any command the config doesn't set, look in this order and take the first match. Record `none` if nothing fits — don't invent a command.
+For any command the config doesn't set, look in this order and take the first match. Record `none` if nothing fits — don't invent a command. Gather the candidates in one Bash call instead of reading each manifest in full, for example `node -p "JSON.stringify(require('./package.json').scripts, null, 1)"`, `ls *lock* bun.lockb 2>/dev/null`, and `grep -E '^[a-z-]+:' Makefile justfile 2>/dev/null`.
 
 | Source | Where to look |
 |---|---|
@@ -29,7 +29,7 @@ For any command the config doesn't set, look in this order and take the first ma
 | `go.mod` | `gofmt -l .`, `go vet ./...`, `go test ./...` |
 | README / CONTRIBUTING | documented commands |
 
-Run the test command once to confirm it works before recording it; keep only the pass/fail summary. If it fails on a clean checkout, record it with a note so Construct doesn't mistake the existing failure for a new one.
+Run the test command once to confirm it works before recording it; keep only the pass/fail summary (`<test> 2>&1 | tail -n 15`). If it fails on a clean checkout, record it with a note so Construct doesn't mistake the existing failure for a new one.
 
 ## 3. Fetch the ticket
 
@@ -39,7 +39,7 @@ A match on `ticketPattern` is only a candidate. Treat it as a ticket id when it 
 
 For a ticket id, fetch the ticket text instead of guessing from the id:
 
-1. **GitHub issue** (`#123`, `owner/repo#123`, or `ticketSource: github`): `gh issue view <id> --json title,body,labels,comments`.
+1. **GitHub issue** (`#123`, `owner/repo#123`, or `ticketSource: github`): `gh issue view <id> --json title,body,labels,comments --jq '{title, body, labels: [.labels[].name], comments: [.comments[-10:][] | {author: .author.login, body}]}'`. This keeps the last 10 comments and drops reaction and URL metadata.
 2. **Jira** (`ticketSource: jira`, or a Jira-style key when a Jira/Atlassian MCP tool is available): fetch the issue with that tool — summary, description, acceptance criteria and comments.
 3. **Fallback:** if neither works (no `gh`, connector not authorized, no access), say which source failed and ask the user to paste the ticket. Don't continue on the id alone.
 

@@ -28,10 +28,10 @@ A suggestion that breaks a documented project rule is not a finding. If a heuris
    ```bash
    node "${CLAUDE_PLUGIN_ROOT}/skills/ux-review/scripts/capture.mjs" --targets .ai-dlc/<work-id>/ux/targets.json --out .ai-dlc/<work-id>/ux --viewports mobile,desktop
    ```
-   It uses the project's own Playwright (and axe-core if present), never installs anything, caps at 40 screenshots, and writes `capture.json` (per screenshot: file, axe violations, small touch targets, console errors). Add `tablet` or `--colorScheme light` only when relevant.
+   It uses the project's own Playwright (and axe-core if present), never installs anything, caps at 40 screenshots, and writes `capture.json` (per screenshot: file, axe violations, small touch targets, console errors) and `summary.json` (the same data grouped by issue, each with the screenshots it appears on). Add `tablet` or `--colorScheme light` only when relevant.
 4. **No Playwright in the project:** use a browser tool if this session has one (Claude in Chrome, built-in browser) to take the same screenshots, and note that axe and target-size data are missing. Otherwise ask the user — don't install packages.
 
-Before delegating, check `capture.json` for errors and for shots flagged `looksEmpty`, and open one screenshot yourself. A spinner or blank page is not evidence: add a `waitFor` step, wait longer, or switch source (a Storybook whose stories hang → the production preview). Re-run once.
+Before delegating, check `captureErrors` and `looksEmpty` in `summary.json` (not the full `capture.json`), and open one screenshot yourself. A spinner or blank page is not evidence: add a `waitFor` step, wait longer, or switch source (a Storybook whose stories hang → the production preview). Re-run once.
 
 ## 4. Delegate the review
 

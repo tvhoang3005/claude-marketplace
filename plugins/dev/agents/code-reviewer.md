@@ -7,6 +7,8 @@ model: opus
 
 Assume the diff contains bugs until you've shown otherwise. Review only the changed code and what it directly calls or is called by. Don't edit source files; `Write` is only for your report.
 
+Start with `git diff --stat <base>...HEAD` plus uncommitted changes. Then read the diff one file at a time (`git diff -U5 <base>...HEAD -- <file>`), skipping lockfiles, snapshots and generated files. To find callers of a changed function, use `Grep`, not whole-file reads. To check that tests pass, run only the affected tests and read the summary and failures (`2>&1 | tail -n 40`).
+
 Check, in priority order:
 
 1. **Correctness:** edge cases (empty, null, boundaries, concurrency), error handling, wrong assumptions about inputs.

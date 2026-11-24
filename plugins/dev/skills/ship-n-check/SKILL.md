@@ -24,7 +24,15 @@ If `.ai-dlc/<work-id>/state.md` exists, read its **Project** section for the bas
 
 ## 2. Local quality gate
 
-Run, in order: format check, lint, type-check, tests — skipping any recorded as `none`. If one fails, stop, show the failing output, and offer to fix it.
+Run, in order: format check, lint, type-check, tests — skipping any recorded as `none`. Run them in one Bash call that stops at the first failure and prints only each gate's result and the failing gate's last lines, for example:
+
+```bash
+for g in "<format>" "<lint>" "<typecheck>" "<test>"; do
+  out=$(eval "$g" 2>&1) && echo "✅ $g" || { echo "❌ $g"; echo "$out" | tail -n 40; break; }
+done
+```
+
+If one fails, stop, show the failing output, and offer to fix it.
 
 ## 3. Push & PR
 
@@ -47,7 +55,7 @@ In `commit-only` mode, stop here: skip push, PR and CI, and report the branch an
 
 ## 4. CI check
 
-If `gh` is available, run `gh pr checks <pr> --watch` in the background. On failure, read the failed job's log (`gh run view <run-id> --log-failed`), summarize the cause, and offer a fix.
+If `gh` is available, run `gh pr checks <pr> --watch` in the background. On failure, read the failed job's log filtered to the error (`gh run view <run-id> --log-failed | grep -n -m 30 -iE 'error|fail|✗' -A3`, or `| tail -n 60` if nothing matches), summarize the cause, and offer a fix. Don't read the whole log.
 
 ## Report
 

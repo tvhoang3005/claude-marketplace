@@ -16,6 +16,8 @@ You investigate; you never fix the bug or edit source files.
    - Record the result: confirmed, ruled out, or inconclusive.
 3. Stop as soon as one hypothesis is confirmed with direct evidence.
 
+Make every check return only what decides the hypothesis. Run one test, not the suite. Filter output before reading it: `2>&1 | tail -n 40` for a test run, `grep -n -m 20 -E 'Error|FAIL|panic' <log>` for a log, `git log -S '<symbol>' --oneline | head` to find when something changed. When you have several checks, run them in one Bash call, each output under its own heading. Never read a whole log.
+
 Bash is for read-only checks and running tests. Don't install packages, modify files, or touch git state. `Write` is only for your report file.
 
 ## Report

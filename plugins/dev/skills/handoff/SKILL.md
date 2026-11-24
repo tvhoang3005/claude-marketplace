@@ -13,7 +13,7 @@ Capture what the code and git history don't: what we were trying to do, what was
 1. **Pick the location.**
    - An ai-dlc work item is active in this session (or the work clearly belongs to one in `.ai-dlc/`): `.ai-dlc/<work-id>/handoff.md`. It replaces any older `handoff.md` there.
    - Otherwise: `.ai-dlc/handoffs/<yyyy-mm-dd>-<slug>.md`, where the slug names the topic (e.g. `2026-10-23-ci-flaky-checkout`).
-2. **Collect state by running commands, not from memory:** `git branch --show-current`, `git status --short`, `git stash list`, `git log --oneline -5`, and the last test/build command's result if one ran this session. If the folder isn't a git repo, say so in the file.
+2. **Collect state by running commands, not from memory**, in one Bash call: `git branch --show-current; git status --short | head -30; git stash list; git log --oneline -5`, plus the last test/build command's result if one ran this session. If the folder isn't a git repo, say so in the file.
 3. **Write the file** using [reference/template.md](reference/template.md). Fill it from this session; leave out empty sections rather than writing "none".
 4. **Check before saving:**
    - Self-contained: no "as discussed above", no references to messages.

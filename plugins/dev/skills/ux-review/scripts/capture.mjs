@@ -10,6 +10,7 @@
 //                  "steps": [{ "click": "text=Show answer" }, { "wait": 300 }], "shotEachStep": true }]
 // Steps: { click: selector } | { fill: [selector, text] } | { press: key } | { wait: ms } | { goto: url } | { waitFor: selector }
 // A shot whose page shows almost no text is flagged "looksEmpty" — usually a spinner or an unrendered story.
+// Writes capture.json (per shot) and summary.json (grouped by issue, with the shots each appears on).
 
 import { createRequire } from 'node:module';
 import { access, chmod, mkdir, readFile, writeFile } from 'node:fs/promises';
@@ -115,6 +116,39 @@ async function axeViolations(page, axeSource) {
   return result;
 }
 
+// Groups capture.json by issue rather than by shot, so a reviewer reads each problem once
+// with the screenshots it appears on.
+function summarize(report) {
+  const IMPACT = { critical: 4, serious: 3, moderate: 2, minor: 1 };
+  const axe = new Map();
+  const targets = new Map();
+  const consoleErrors = new Map();
+  const add = (map, key, file, init) => {
+    if (!map.has(key)) map.set(key, { ...init, shots: [] });
+    const entry = map.get(key);
+    if (!entry.shots.includes(file)) entry.shots.push(file);
+    return entry;
+  };
+  for (const s of report.shots) {
+    for (const v of s.axe ?? []) {
+      const entry = add(axe, v.id, s.file, { id: v.id, impact: v.impact, help: v.help, nodes: 0, example: v.nodes[0] ?? null });
+      entry.nodes += v.count;
+    }
+    for (const t of s.smallTargets) add(targets, `${t.label}|${t.w}x${t.h}`, s.file, { label: t.label, size: `${t.w}x${t.h}`, at: { x: t.x, y: t.y } });
+    for (const e of s.consoleErrors) add(consoleErrors, e, s.file, { error: e });
+  }
+  return {
+    axe: report.axe,
+    minTarget: report.minTarget,
+    shots: report.shots.map((s) => s.file),
+    looksEmpty: report.shots.filter((s) => s.looksEmpty).map((s) => s.file),
+    captureErrors: report.errors,
+    axeViolations: [...axe.values()].sort((a, b) => (IMPACT[b.impact] ?? 0) - (IMPACT[a.impact] ?? 0) || b.nodes - a.nodes),
+    smallTargets: [...targets.values()].sort((a, b) => b.shots.length - a.shots.length),
+    consoleErrors: [...consoleErrors.values()],
+  };
+}
+
 async function step(page, s) {
   if (s.click) await page.click(s.click, { timeout: 5000 });
   else if (s.fill) await page.fill(s.fill[0], s.fill[1], { timeout: 5000 });
@@ -188,7 +222,8 @@ for (const target of targets) {
 
 await browser.close();
 await writeFile(join(outDir, 'capture.json'), JSON.stringify(report, null, 2));
+await writeFile(join(outDir, 'summary.json'), JSON.stringify(summarize(report), null, 2));
 const empty = report.shots.filter((s) => s.looksEmpty).length;
-console.log(`${report.shots.length} screenshots, ${report.errors.length} errors, ${empty} look empty, axe: ${report.axe ? 'on' : 'not installed'} → ${join(outDir, 'capture.json')}`);
+console.log(`${report.shots.length} screenshots, ${report.errors.length} errors, ${empty} look empty, axe: ${report.axe ? 'on' : 'not installed'} → ${join(outDir, 'summary.json')}`);
 if (empty) console.log('Some screenshots look empty (spinner or unrendered page): wait longer, add a waitFor step, or use another source before reviewing.');
 if (shots >= MAX_SHOTS) console.log(`stopped at ${MAX_SHOTS} screenshots`);
