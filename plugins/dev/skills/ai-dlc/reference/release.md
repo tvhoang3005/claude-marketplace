@@ -9,7 +9,7 @@ Hand off to the `ship-n-check` skill. Pass it:
 - the verdict line from `review.md`,
 - the `## Follow-ups` from `state.md`, if any, for the PR's Notes line.
 
-When `ship-n-check` returns, record the PR URL and CI status under **Notes** in `state.md` and tick `release`. Tell the user the PR link and anything still pending (CI running, reviewers requested). If there are Follow-ups, list them and offer to create tickets for them. Show the ticket text first (see the `team-writing` rule).
+When `ship-n-check` returns, record the PR URL and CI status under **Notes** in `state.md` and tick `release`. Tell the user the PR link and anything still pending (CI running, reviewers requested). If there are Follow-ups, list them and offer to create tickets for them. Show the ticket text first (see [team-writing.md](../../ship-n-check/reference/team-writing.md)).
 
 With `Release: commit-only`, record the branch and commit SHA instead of a PR URL, and tell the user the work is committed locally and how to merge it (`git checkout <base> && git merge <branch>`).
 

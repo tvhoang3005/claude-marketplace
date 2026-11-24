@@ -39,7 +39,7 @@ If one fails, stop, show the failing output, and offer to fix it.
 In `commit-only` mode, stop here: skip push, PR and CI, and report the branch and commit SHA.
 
 1. Push with `git push -u origin <branch>`. Never force-push a shared branch.
-2. If `gh` is available, open a **draft** PR against the base branch with `gh pr create --draft`. If the repo has a PR template (`.github/pull_request_template.md` or similar), fill that in. Otherwise use the body below. Either way, follow the `team-writing` rule: the PR goes out under the user's name, so keep it short and drop any section with nothing to say.
+2. If `gh` is available, open a **draft** PR against the base branch with `gh pr create --draft`. If the repo has a PR template (`.github/pull_request_template.md` or similar), fill that in. Otherwise use the body below. Either way, follow [reference/team-writing.md](reference/team-writing.md): the PR goes out under the user's name, so keep it short and drop any section with nothing to say.
 
    ```markdown
    <1–3 sentences: what changed and why. Link the ticket.>
